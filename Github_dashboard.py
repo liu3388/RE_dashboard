@@ -147,10 +147,6 @@ fig = px.bar(df_chart1, x="date2", y="median_listing_price",
              text="median_listing_price", barmode = 'group',
              width=600, 
              height=430, 
-             yaxis_tickprefix = '$',
-        # showlegend=False,
-        # title_x=0.08,
-        # title_y=0.925
              )
 
 with col1:
@@ -166,7 +162,7 @@ with col1:
         yaxis_title=None,
         xaxis_title=None,
         # yaxis_tickprefix = '$',
-        # showlegend=False,
+        showlegend=False,
         # title_x=0.08,
         # title_y=0.925
         )
