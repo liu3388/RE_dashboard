@@ -19,7 +19,6 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 import yfinance as yf
-from yahoofinancials import YahooFinancials
 
 #%% page setup
 st.set_page_config(layout="wide")  # this needs to be the first Streamlit command
