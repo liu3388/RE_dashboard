@@ -144,7 +144,8 @@ df_chart1['date2']=df_chart1['date'].astype(str)
 
 fig = px.bar(df_chart1, x="date2", y="median_listing_price", 
              title = 'Realtor.com median house price', 
-             text="median_listing_price", barmode = 'group'
+             text="median_listing_price", barmode = 'group',
+             width=600, height=430
              )
 
 with col1:
@@ -163,8 +164,7 @@ with col1:
         showlegend=False,
         title_x=0.08,
         title_y=0.925,
-        width=600,
-        height=430)
+        )
     
     #add that percentage price change label
     price_change = df_chart1.iloc[1]['median_listing_price']/df_chart1.iloc[0]['median_listing_price'] -1
