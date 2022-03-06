@@ -147,6 +147,7 @@ fig = px.bar(df_chart1, x="date2", y="median_listing_price",
              text="median_listing_price", barmode = 'group',
              width=600, 
              height=430,
+             
              )
 
 with col1:
@@ -159,8 +160,9 @@ with col1:
         title = (f'<b>Realtor.com median listing house price  <br>Zip code: {ZIP_SELECTED}</b>'),
         title_font_size=18,
         showlegend=False,
-        legend_title_font_color="black",
-        # yaxis_title=None,
+        yaxis_title=None,
+        
+        # legend_title_font_color="black",
         # xaxis_title=None,
         # yaxis_tickprefix = '$',
         # title_x=0.08,
