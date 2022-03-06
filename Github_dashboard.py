@@ -162,10 +162,10 @@ with col1:
         showlegend=False,
         yaxis_title=None,
         xaxis_title=None,
+        yaxis_tickprefix = '$',
         
         # legend_title_font_color="black",
-        # 
-        # yaxis_tickprefix = '$',
+        #  
         # title_x=0.08,
         # title_y=0.925
         )
