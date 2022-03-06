@@ -166,7 +166,11 @@ with col1:
         height=430,
         )
     
-    fig.update_traces(texttemplate='%{value:$,.0f}')
+    fig.update_xaxes(type='category', linecolor='black')
+    
+    fig.update_traces(textposition='inside')
+    
+    # fig.update_traces(texttemplate='%{value:$,.0f}')
     
     
     #add that percentage price change label
@@ -180,7 +184,7 @@ with col1:
     #               x=0.5, y=y_position, showarrow=False, font_size=18)
         
     
-    fig.update_xaxes(type='category', linecolor='black')
+
     
     #place the chart in streamlit column
     st.plotly_chart(fig)
