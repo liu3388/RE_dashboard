@@ -164,11 +164,7 @@ with col1:
         xaxis_title=None,
         yaxis_tickprefix = '$',
         title_x=0.08,
-        
-        # legend_title_font_color="black",
-        #  
-        # 
-        # title_y=0.925
+        title_y=0.925
         )
     
     #add that percentage price change label
