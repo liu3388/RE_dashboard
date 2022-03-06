@@ -166,7 +166,6 @@ with col1:
         title_y=0.925,
         width=600,
         height=430, 
-        bargap=0.2
         )
     
     #add that percentage price change label
@@ -230,8 +229,7 @@ with col2:
         title_x=0.08,
         title_y=0.925,
         width=600,
-        height=430, 
-        bargap=0.175
+        height=430
         )
     
     #legend placement inside chart
@@ -445,7 +443,6 @@ with col3:
             title_y=0.925,
             width=600,
             height=430, 
-            bargap=0.2,
             legend=dict(
                 orientation="h",
                 yanchor="bottom",
@@ -732,8 +729,7 @@ with col1:
             title_x=0.03,
             title_y=0.925,
             width=600,
-            height=430, 
-            bargap=0.175
+            height=430
             )
         
         fig_4.layout.xaxis.tickformat = ',.0%'
@@ -811,8 +807,7 @@ with col2:
             title_x=0.08,
             title_y=0.925,
             width=600,
-            height=430, 
-            bargap=0.175
+            height=430
             )
         
         #legend placement inside chart
@@ -884,8 +879,7 @@ with col3:
             title_x=0.08,
             title_y=0.925,
             width=600,
-            height=430, 
-            bargap=0.175
+            height=430
             )
         
         #legend placement inside chart
