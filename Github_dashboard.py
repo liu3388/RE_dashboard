@@ -150,20 +150,20 @@ fig = px.bar(df_chart1, x="date2", y="median_listing_price",
 
 with col1:
     fig.update_layout(
-        font_family="Arial",
-        font_color="black",
-        font_size=15,
-        title_font_family="Arial",
-        title_font_color="black",
-        title = (f'<b>Realtor.com median listing house price  <br>Zip code: {ZIP_SELECTED}</b>'),
-        title_font_size=18,
-        legend_title_font_color="black",
-        yaxis_title=None,
-        xaxis_title=None,
-        yaxis_tickprefix = '$',
-        showlegend=False,
-        title_x=0.08,
-        title_y=0.925
+        # font_family="Arial",
+        # font_color="black",
+        # font_size=15,
+        # title_font_family="Arial",
+        # title_font_color="black",
+        # title = (f'<b>Realtor.com median listing house price  <br>Zip code: {ZIP_SELECTED}</b>'),
+        # title_font_size=18,
+        # legend_title_font_color="black",
+        # yaxis_title=None,
+        # xaxis_title=None,
+        # yaxis_tickprefix = '$',
+        # showlegend=False,
+        # title_x=0.08,
+        # title_y=0.925
         )
     
     #add that percentage price change label
