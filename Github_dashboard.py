@@ -164,7 +164,8 @@ with col1:
         xaxis_title=None,
         yaxis_tickprefix = '$',
         title_x=0.08,
-        title_y=0.925
+        title_y=0.925,
+        texttemplate='%{value:$,.0f}'
         )
     
     #add that percentage price change label
