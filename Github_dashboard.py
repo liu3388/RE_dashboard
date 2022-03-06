@@ -165,7 +165,7 @@ with col1:
         title_x=0.08,
         title_y=0.925,
         width=600,
-        height=430, 
+        height=430
         )
     
     #add that percentage price change label
