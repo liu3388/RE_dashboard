@@ -163,7 +163,7 @@ with col1:
         yaxis_tickprefix = '$',
         showlegend=False,
         title_x=0.08,
-        title_y=0.925,
+        title_y=0.925
         )
     
     #add that percentage price change label
