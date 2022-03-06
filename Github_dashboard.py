@@ -176,9 +176,9 @@ with col1:
     #               xref="x", yref="y",
     #               x=0.5, y=y_position, showarrow=False, font_size=18)
         
-    fig.update_traces(texttemplate='%{value:$,.0f}', textfont_size=15, textposition='inside',
-                      # marker_color='#0000FF'
-                      )
+    # fig.update_traces(texttemplate='%{value:$,.0f}', textfont_size=15, textposition='inside',
+    #                   # marker_color='#0000FF'
+    #                   )
     fig.update_xaxes(type='category', linecolor='black')
     
     #place the chart in streamlit column
