@@ -145,6 +145,7 @@ df_chart1['date2']=df_chart1['date'].astype(str)
 fig = px.bar(df_chart1, x="date2", y="median_listing_price", 
              title = 'Realtor.com median house price', 
              text="median_listing_price", barmode = 'group',
+             texttemplate='%{value:$,.0f}'
              )
 
 with col1:
