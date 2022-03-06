@@ -157,10 +157,10 @@ with col1:
         title_font_color="black",
         title = (f'<b>Realtor.com median listing house price  <br>Zip code: {ZIP_SELECTED}</b>'),
         title_font_size=18,
-        # legend_title_font_color="black",
-        # yaxis_title=None,
-        # xaxis_title=None,
-        # yaxis_tickprefix = '$',
+        legend_title_font_color="black",
+        yaxis_title=None,
+        xaxis_title=None,
+        yaxis_tickprefix = '$',
         # showlegend=False,
         # title_x=0.08,
         # title_y=0.925
@@ -176,8 +176,7 @@ with col1:
     #               xref="x", yref="y",
     #               x=0.5, y=y_position, showarrow=False, font_size=18)
         
-    # fig.update_traces(texttemplate='%{value:$,.0f}', textfont_size=15, textposition='inside',
-    #                   # marker_color='#0000FF'
+    # fig.update_traces(texttemplate='%{value:$,.0f}', textfont_size=15
     #                   )
     fig.update_xaxes(type='category', linecolor='black')
     
