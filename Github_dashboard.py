@@ -157,7 +157,7 @@ with col1:
         title_font_family="Arial",
         title_font_color="black",
         title = (f'<b>Realtor.com median listing house price  <br>Zip code: {ZIP_SELECTED}</b>'),
-        # title_font_size=18,
+        title_font_size=18,
         # legend_title_font_color="black",
         # yaxis_title=None,
         # xaxis_title=None,
