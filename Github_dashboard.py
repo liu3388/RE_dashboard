@@ -147,7 +147,6 @@ fig = px.bar(df_chart1, x="date2", y="median_listing_price",
              text="median_listing_price", barmode = 'group',
              width=600, 
              height=430,
-             showlegend=False
              )
 
 with col1:
