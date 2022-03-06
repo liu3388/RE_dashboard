@@ -151,7 +151,7 @@ fig = px.bar(df_chart1, x="date2", y="median_listing_price",
 
 with col1:
     fig.update_layout(
-        # font_family="Arial",
+        font_family="Arial",
         # font_color="black",
         # font_size=15,
         # title_font_family="Arial",
