@@ -166,6 +166,9 @@ with col1:
         height=430,
         )
     
+    fig.update_traces(texttemplate='%{value:$,.0f}', textfont_size=15)
+    
+    
     #add that percentage price change label
     price_change = df_chart1.iloc[1]['median_listing_price']/df_chart1.iloc[0]['median_listing_price'] -1
     my_formatter = "{:+.0%}"
@@ -176,8 +179,7 @@ with col1:
     #               xref="x", yref="y",
     #               x=0.5, y=y_position, showarrow=False, font_size=18)
         
-    # fig.update_traces(texttemplate='%{value:$,.0f}', textfont_size=15
-    #                   )
+    
     fig.update_xaxes(type='category', linecolor='black')
     
     #place the chart in streamlit column
