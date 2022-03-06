@@ -145,9 +145,6 @@ df_chart1['date2']=df_chart1['date'].astype(str)
 fig = px.bar(df_chart1, x="date2", y="median_listing_price", 
              title = 'Realtor.com median house price', 
              text="median_listing_price", barmode = 'group',
-             width=600, 
-             height=430,
-             
              )
 
 with col1:
@@ -165,7 +162,8 @@ with col1:
         yaxis_tickprefix = '$',
         title_x=0.08,
         title_y=0.925,
-        texttemplate='%{value:$,.0f}'
+        width=600, 
+        height=430,
         )
     
     #add that percentage price change label
