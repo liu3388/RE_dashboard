@@ -159,14 +159,12 @@ with col1:
         legend_title_font_color="black",
         yaxis_title=None,
         xaxis_title=None,
-#        yaxis_range=[0, 400000],
         yaxis_tickprefix = '$',
         showlegend=False,
         title_x=0.08,
         title_y=0.925,
         width=600,
-        height=430
-        )
+        height=430)
     
     #add that percentage price change label
     price_change = df_chart1.iloc[1]['median_listing_price']/df_chart1.iloc[0]['median_listing_price'] -1
