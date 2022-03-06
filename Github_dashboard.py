@@ -166,7 +166,7 @@ with col1:
         height=430,
         )
     
-    fig.update_traces(texttemplate='%{value:$,.0f}', textfont_size=15)
+    fig.update_traces(texttemplate='%{value:$,.0f}')
     
     
     #add that percentage price change label
