@@ -159,7 +159,7 @@ with col1:
         title = (f'<b>Realtor.com median listing house price  <br>Zip code: {ZIP_SELECTED}</b>'),
         title_font_size=18,
         showlegend=False,
-        # legend_title_font_color="black",
+        legend_title_font_color="black",
         # yaxis_title=None,
         # xaxis_title=None,
         # yaxis_tickprefix = '$',
