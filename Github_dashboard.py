@@ -216,9 +216,13 @@ with col2:
                    x="year", 
                    y=["2 bedroom", "3 bedroom", "4 bedroom"], 
                    title = 'Rental trends', 
-                   color_discrete_map=(colors)
-                   # color_discrete_map=colors
-                 )
+                   color_discrete_map={
+                       "2 bedroom": "orange",
+                       "3 bedroom": "#00FFFF",
+                       "4 bedroom": "#00FF00",
+                       }
+                   )
+                    
     
     #format chart
     fig_2.update_layout(
