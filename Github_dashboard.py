@@ -176,11 +176,11 @@ with col1:
      
     
     #add that percentage price change label
-    price_change = df_chart1.iloc[1]['median_listing_price']/df_chart1.iloc[0]['median_listing_price'] -1
-    my_formatter = "{:+.0%}"
-    price_change = my_formatter.format(price_change)
+    # price_change = df_chart1.iloc[1]['median_listing_price']/df_chart1.iloc[0]['median_listing_price'] -1
+    # my_formatter = "{:+.0%}"
+    # price_change = my_formatter.format(price_change)
         
-    y_position = df_chart1.iloc[1]['median_listing_price']*1.10
+    # y_position = df_chart1.iloc[1]['median_listing_price']*1.10
     # fig.add_annotation(text=(f'<b>{price_change}</b>'),
     #               xref="x", yref="y",
     #               x=0.5, y=y_position, showarrow=False, font_size=18)
