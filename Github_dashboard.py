@@ -142,11 +142,11 @@ with col1:
     
     df_chart1 = df_chart1b.append(df_chart1c)
     df_chart1['date2']=df_chart1['date'].astype(str)
-    df_chart1['median_listing_price'] = df_chart1['median_listing_price'].map('${:,.0f}'.format)
+    df_chart1['median_listing_price_$'] = df_chart1['median_listing_price'].map('${:,.0f}'.format)
     
     fig = px.bar(df_chart1, x="date2", y="median_listing_price", 
                  title = 'Realtor.com median house price', 
-                 text="median_listing_price", 
+                 text="median_listing_price_$", 
                  )
     
     fig.update_layout(
@@ -171,14 +171,13 @@ with col1:
     
     fig.update_traces(textposition='inside', 
                       textfont_size=13,
-                      # texttemplate='%{value:$,.0f}',
                       )
      
     
-    #add that percentage price change label
-    # price_change = df_chart1.iloc[1]['median_listing_price']/df_chart1.iloc[0]['median_listing_price'] -1
-    # my_formatter = "{:+.0%}"
-    # price_change = my_formatter.format(price_change)
+    # add that percentage price change label
+    price_change = df_chart1.iloc[1]['median_listing_price']/df_chart1.iloc[0]['median_listing_price'] -1
+    my_formatter = "{:+.0%}"
+    price_change = my_formatter.format(price_change)
         
     # y_position = df_chart1.iloc[1]['median_listing_price']*1.10
     # fig.add_annotation(text=(f'<b>{price_change}</b>'),
