@@ -181,9 +181,14 @@ with col1:
     
     ############################# above this line code is good
     y_position = df_chart1.iloc[1]['median_listing_price']*1.10
+    
     fig.add_annotation(text=(f'<b>{price_change}</b>'),
-                  xref="x", yref="y",
-                  x=0.5, y=y_position, showarrow=False, font_size=18)
+                       xref="x", 
+                       yref="y",
+                       x=0.5, 
+                       y=y_position, 
+                       showarrow=False, 
+                       font_size=18)
         
     
 
