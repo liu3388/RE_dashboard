@@ -160,9 +160,9 @@ with col1:
     
     fig = px.bar(df_chart1, x="date2", y="median_listing_price", 
                  title = 'Realtor.com median house price', 
-                 text_auto=True,
                  # text="median_listing_price", 
-                 barmode = 'group',
+                 # barmode = 'group',
+                 text_auto=True
                  )
     
     fig.update_layout(
