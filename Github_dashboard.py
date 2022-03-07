@@ -225,7 +225,7 @@ with col2:
                    x="Bedrooms", 
                    y="2022", 
                    # title = 'Rental trends',
-                   barmode="group"
+                   
                    )
                     
     
