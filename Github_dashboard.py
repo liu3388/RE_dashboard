@@ -168,7 +168,7 @@ with col1:
     
     fig.update_xaxes(type='category', linecolor='black')
     
-    fig.update_traces(textposition='inside', textfont_size=13,)
+    fig.update_traces(textposition='inside', textfont_size=13, texttemplate='%{:$,.0f}')
     
     
     
