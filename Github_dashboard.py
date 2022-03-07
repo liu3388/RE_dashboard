@@ -168,7 +168,7 @@ with col1:
     
     fig.update_xaxes(type='category', linecolor='black')
     
-    fig.update_traces(textposition='inside', texttemplate='%{text:.2s}')
+    fig.update_traces(textposition='inside', text="median_listing_price")
     
     # fig.update_traces(texttemplate='%{value:$,.0f}')
     
