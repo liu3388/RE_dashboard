@@ -159,8 +159,7 @@ with col1:
     
     fig = px.bar(df_chart1, x="date2", y="median_listing_price", 
                  title = 'Realtor.com median house price', 
-                 text_auto='.2s',
-                 # text="median_listing_price", 
+                 text="median_listing_price", 
                                   
                  )
     
@@ -184,7 +183,9 @@ with col1:
     
     fig.update_xaxes(type='category', linecolor='black')
     
-    fig.update_traces(textposition='inside', textfont_size=13)
+    # fig.update_traces(textposition='inside', textfont_size=13)
+    fig.update_traces(texttemplate='%{text:.2s}', textposition='outside')
+
     
     
     
