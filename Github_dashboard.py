@@ -216,8 +216,8 @@ with col2:
                    x="year", 
                    y=["2 bedroom", "3 bedroom", "4 bedroom"], 
                    title = 'Rental trends', 
-                   barmode = 'group', 
-                   color_discrete_map=colors
+                   color_discrete_map=(colors)
+                   # color_discrete_map=colors
                  )
     
     #format chart
