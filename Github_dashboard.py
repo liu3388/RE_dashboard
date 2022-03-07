@@ -142,6 +142,7 @@ with col1:
     
     df_chart1 = df_chart1b.append(df_chart1c)
     df_chart1['date2']=df_chart1['date'].astype(str)
+    df_chart1['median_listing_price'] = df_chart1['median_listing_price'].map('${:,.0f}'.format)
     
     fig = px.bar(df_chart1, x="date2", y="median_listing_price", 
                  title = 'Realtor.com median house price', 
