@@ -220,7 +220,8 @@ with col2:
     fig_2 = px.bar(df_rent_chart, 
                    x="year", 
                    y=["2 bedroom", "3 bedroom", "4 bedroom"], 
-                   title = 'Rental trends', 
+                   # title = 'Rental trends',
+                   barmode="group"
                    )
                     
     
