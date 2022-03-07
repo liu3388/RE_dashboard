@@ -221,7 +221,26 @@ with col2:
                    y="4 bedroom", 
                    title = 'Rental trends',
                    )
-                    
+
+
+    # fig.update_layout(
+    #     font_family="Arial",
+    #     font_color="black",
+    #     font_size=15,
+    #     title_font_family="Arial",
+    #     title_font_color="black",
+    #     title = (f'<b>Realtor.com median listing house price  <br>Zip code: {ZIP_SELECTED}</b>'),
+    #     title_font_size=18,
+    #     showlegend=False,
+    #     yaxis_title=None,
+    #     xaxis_title=None,
+    #     yaxis_tickprefix = '$',
+    #     title_x=0.08,
+    #     title_y=0.925,
+    #     width=600, 
+    #     height=430,
+    #     )
+      
     
     #format chart
     fig_2.update_layout(
@@ -233,15 +252,15 @@ with col2:
         title = (f'<b>Rental trends: monthly rent costs <br>Zip code: {ZIP_SELECTED}</b>'),
         title_font_size=18,
         legend_title_font_color="black",
+        showlegend=True,
         legend_title=None,
         yaxis_title=None,
         xaxis_title=None,
         yaxis_tickprefix = '$', 
-        showlegend=True,
         title_x=0.08,
         title_y=0.925,
         width=600,
-        height=430
+        height=430,
         )
     
     #legend placement inside chart
