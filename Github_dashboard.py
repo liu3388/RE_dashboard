@@ -181,20 +181,13 @@ with col1:
     
     y_position = df_chart1.iloc[1]['median_listing_price']*1.10
     
-    ############################# above this line code is good
-    fig.add_annotation(
-                       # xref="x", 
-                       # yref="y",
-                       x=0.5, 
-                       y=y_position,
-                       text="ADD", 
-                       showarrow=False, 
-                       font_size=18)
+    # fig.add_annotation(text=(f'<b>{price_change}</b>'),
+    #                    xref="x", 
+    #                    yref="y",
+    #                    x=0.5, 
+    #                    y=y_position,
+    #                    font_size=18)
         
-    
-
-    # text=(f'<b>{price_change}</b>'),
-    
     #place the chart in streamlit column
     st.plotly_chart(fig)
 
