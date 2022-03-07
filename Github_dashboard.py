@@ -168,9 +168,13 @@ with col1:
     
     fig.update_xaxes(type='category', linecolor='black')
     
-    fig.update_traces(textposition='inside')
+    fig.update_traces(textposition='inside', textfont_size=13,)
     
-    fig.update_traces(texttemplate='%{y:$,.0f}')
+    
+    
+    
+    # fig.update_traces(texttemplate='%{value:$,.0f}', textfont_size=13, 
+    #                     textposition='inside')
     
     
     #add that percentage price change label
