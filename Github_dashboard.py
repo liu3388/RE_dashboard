@@ -145,7 +145,7 @@ df_chart1['date2']=df_chart1['date'].astype(str)
 fig = px.bar(df_chart1, x="date2", y="median_listing_price", 
              title = 'Realtor.com median house price', 
              text="median_listing_price", barmode = 'group',
-             )
+             texttemplate = '%{y:$.2s}')
 
 with col1:
     fig.update_layout(
@@ -168,7 +168,7 @@ with col1:
     
     fig.update_xaxes(type='category', linecolor='black')
     
-    fig.update_traces(textposition='outside')
+    fig.update_traces(textposition='inside')
     
     # fig.update_traces(texttemplate='%{value:$,.0f}')
     
