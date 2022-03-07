@@ -219,7 +219,7 @@ with col2:
                    color_discrete_map={
                        "2 bedroom": "orange",
                        "3 bedroom": "#00FFFF",
-                       "4 bedroom": "blue",
+                       "4 bedroom": "red"
                        }
                    )
                     
