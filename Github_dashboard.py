@@ -216,11 +216,11 @@ with col2:
                    x="year", 
                    y=["2 bedroom", "3 bedroom", "4 bedroom"], 
                    title = 'Rental trends', 
-                   color_discrete_map={
-                       "2 bedroom": "orange",
-                       "3 bedroom": "#00FFFF",
-                       "4 bedroom": "red"
-                       }
+                   # color_discrete_map={
+                   #     "2 bedroom": "orange",
+                   #     "3 bedroom": "#00FFFF",
+                   #     "4 bedroom": "red"
+                   #     }
                    )
                     
     
@@ -255,8 +255,8 @@ with col2:
         x=1
         ))
     
-    fig_2.update_traces(texttemplate='%{value:$,.0f}', textfont_size=13, 
-                        textposition='inside')
+    # fig_2.update_traces(texttemplate='%{value:$,.0f}', textfont_size=13, 
+    #                     textposition='inside')
     fig_2.update_xaxes(type='category', linecolor='black')
     fig_2.update_yaxes(dtick=500)
     
