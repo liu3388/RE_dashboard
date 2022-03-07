@@ -157,6 +157,8 @@ with col1:
     df_chart1 = df_chart1b.append(df_chart1c)
     df_chart1['date2']=df_chart1['date'].astype(str)
     format_mapping = {"median_listing_price": "${:,.0f}"}
+    df_chart1.style.format(format_mapping)
+
 
     
     fig = px.bar(df_chart1, x="date2", y="median_listing_price", 
@@ -185,7 +187,7 @@ with col1:
     
     fig.update_xaxes(type='category', linecolor='black')
     
-    fig.update_traces(textposition='inside', textfont_size=13, texttemplate="${:,.0f}")
+    fig.update_traces(textposition='inside', textfont_size=13)
     
     
     
