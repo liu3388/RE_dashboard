@@ -25,7 +25,6 @@ st.set_page_config(layout="wide")  # this needs to be the first Streamlit comman
 
 st.title("RENT or BUY?")
 st.subheader("Set inputs on 'Control Panel' on left. Scroll down for more analysis.")
-#st.markdown("*Check out the [article](https://www.crosstab.io/articles/staged-rollout-analysis) for a detailed walk-through!*")
 st.sidebar.title("Control Panel")
 st.sidebar.subheader("Inputs on home purchase")
 
@@ -61,7 +60,7 @@ df_income = pd.read_csv(url_income)
 # path = os.getcwd()
 # path_csv = path + "\\"
 
-#%% import csv files via local drive
+# #%% import csv files via local drive
 # df_zip = "zip_codes.csv"
 # df_zip = pd.read_csv (path + "\\" + df_zip)
 # df_rent = "rent.csv"
@@ -134,21 +133,20 @@ df_chart1a = (df_chart1.loc[df_chart1['postal_code'] == (ZIP_SELECTED)])
 df_chart1b = (df_chart1a.loc[df_chart1a['date'] == (DATE_SELECTED)])
 df_chart1c = (df_chart1a.loc[df_chart1a['date'] == (END_DATE_SELECTED)])
 
+#set up variable for current house price
+current_price = df_chart1c.iloc[0]['median_listing_price']
 
-#%%
+df_chart1 = df_chart1b.append(df_chart1c)
+df_chart1['date2']=df_chart1['date'].astype(str)
+
+#%% Chart_1: home price
+
+fig = px.bar(df_chart1, x="date2", y="median_listing_price", 
+             title = 'Realtor.com median house price', 
+             text="median_listing_price", barmode = 'group'
+             )
+
 with col1:
-    #set up variable for current house price
-    current_price = df_chart1c.iloc[0]['median_listing_price']
-    
-    df_chart1 = df_chart1b.append(df_chart1c)
-    df_chart1['date2']=df_chart1['date'].astype(str)
-    df_chart1['median_listing_price_$'] = df_chart1['median_listing_price'].map('${:,.0f}'.format)
-    
-    fig = px.bar(df_chart1, x="date2", y="median_listing_price", 
-                 title = 'Realtor.com median house price', 
-                 text="median_listing_price_$", 
-                 )
-    
     fig.update_layout(
         font_family="Arial",
         font_color="black",
@@ -157,37 +155,33 @@ with col1:
         title_font_color="black",
         title = (f'<b>Realtor.com median listing house price  <br>Zip code: {ZIP_SELECTED}</b>'),
         title_font_size=18,
-        showlegend=False,
+        legend_title_font_color="black",
         yaxis_title=None,
         xaxis_title=None,
+#        yaxis_range=[0, 400000],
         yaxis_tickprefix = '$',
+        showlegend=False,
         title_x=0.08,
         title_y=0.925,
-        width=600, 
-        height=430,
+        width=600,
+        height=430, 
+        bargap=0.2
         )
     
-    fig.update_xaxes(type='category', linecolor='black')
-    
-    fig.update_traces(textposition='inside', 
-                      textfont_size=13,
-                      )
-     
-    
-    # add that percentage price change label
+    #add that percentage price change label
     price_change = df_chart1.iloc[1]['median_listing_price']/df_chart1.iloc[0]['median_listing_price'] -1
     my_formatter = "{:+.0%}"
     price_change = my_formatter.format(price_change)
-    
-    y_position = df_chart1.iloc[1]['median_listing_price']*1.10
-    
-    # fig.add_annotation(text=(f'<b>{price_change}</b>'),
-    #                    xref="x", 
-    #                    yref="y",
-    #                    x=0.5, 
-    #                    y=y_position,
-    #                    font_size=18)
         
+    y_position = df_chart1.iloc[1]['median_listing_price']*1.10
+    fig.add_annotation(text=(f'<b>{price_change}</b>'),
+                  xref="x", yref="y",
+                  x=0.5, y=y_position, showarrow=False, font_size=18)
+        
+    fig.update_traces(texttemplate='%{value:$,.0f}', textfont_size=15, textposition='inside',
+                      marker_color='#0000FF')
+    fig.update_xaxes(type='category', linecolor='black')
+    
     #place the chart in streamlit column
     st.plotly_chart(fig)
 
@@ -201,10 +195,6 @@ df_rent.rename(columns={'fmr_1br': '1 bedroom', 'fmr_2br': '2 bedroom',
 df_rent_chart = df_rent.loc[df_rent['zip_code'] == int(ZIP_SELECTED)]
 df_rent_chart = df_rent_chart[['2 bedroom', '3 bedroom', '4 bedroom', 'year']]
 df_rent_chart = df_rent_chart[df_rent_chart['year'].isin(['2017', '2022'])]
-# df_rent_chart2 = df_rent_chart.T
-# df_rent_chart2 = df_rent_chart2.rename(columns=df_rent_chart2.iloc[3])
-# df_rent_chart2['Bedrooms'] = [2,3,4,0]
-# df_rent_chart2[:-1]
 
 # start chart coding
 with col2:
@@ -215,32 +205,10 @@ with col2:
         "3 bedroom": "#00FFFF",
         "4 bedroom": "#00FF00",
     }
-        
-    fig_2 = px.bar(df_rent_chart, 
-                   x="year", 
-                   y="4 bedroom", 
-                   title = 'Rental trends',
-                   )
-
-
-    # fig.update_layout(
-    #     font_family="Arial",
-    #     font_color="black",
-    #     font_size=15,
-    #     title_font_family="Arial",
-    #     title_font_color="black",
-    #     title = (f'<b>Realtor.com median listing house price  <br>Zip code: {ZIP_SELECTED}</b>'),
-    #     title_font_size=18,
-    #     showlegend=False,
-    #     yaxis_title=None,
-    #     xaxis_title=None,
-    #     yaxis_tickprefix = '$',
-    #     title_x=0.08,
-    #     title_y=0.925,
-    #     width=600, 
-    #     height=430,
-    #     )
-      
+    
+    fig_2 = px.bar(df_rent_chart, x="year", y=["2 bedroom", "3 bedroom", "4 bedroom"], 
+                     title = 'Rental trends', barmode = 'group', color_discrete_map=colors
+                 )
     
     #format chart
     fig_2.update_layout(
@@ -252,28 +220,30 @@ with col2:
         title = (f'<b>Rental trends: monthly rent costs <br>Zip code: {ZIP_SELECTED}</b>'),
         title_font_size=18,
         legend_title_font_color="black",
-        showlegend=True,
         legend_title=None,
         yaxis_title=None,
         xaxis_title=None,
+    #    yaxis_range=[0, 400000],
         yaxis_tickprefix = '$', 
+        showlegend=True,
         title_x=0.08,
         title_y=0.925,
         width=600,
-        height=430,
+        height=430, 
+        bargap=0.175
         )
     
     #legend placement inside chart
-    # fig_2.update_layout(legend=dict(
-    #     orientation="h",
-    #     yanchor="bottom",
-    #     y=1.02,
-    #     xanchor="right",
-    #     x=1
-    #     ))
+    fig_2.update_layout(legend=dict(
+        orientation="h",
+        yanchor="bottom",
+        y=1.02,
+        xanchor="right",
+        x=1
+        ))
     
-    # fig_2.update_traces(texttemplate='%{value:$,.0f}', textfont_size=13, 
-    #                     textposition='inside')
+    fig_2.update_traces(texttemplate='%{value:$,.0f}', textfont_size=13, 
+                        textposition='inside')
     fig_2.update_xaxes(type='category', linecolor='black')
     fig_2.update_yaxes(dtick=500)
     
@@ -474,6 +444,7 @@ with col3:
             title_y=0.925,
             width=600,
             height=430, 
+            bargap=0.2,
             legend=dict(
                 orientation="h",
                 yanchor="bottom",
@@ -760,7 +731,8 @@ with col1:
             title_x=0.03,
             title_y=0.925,
             width=600,
-            height=430
+            height=430, 
+            bargap=0.175
             )
         
         fig_4.layout.xaxis.tickformat = ',.0%'
@@ -838,7 +810,8 @@ with col2:
             title_x=0.08,
             title_y=0.925,
             width=600,
-            height=430
+            height=430, 
+            bargap=0.175
             )
         
         #legend placement inside chart
@@ -910,7 +883,8 @@ with col3:
             title_x=0.08,
             title_y=0.925,
             width=600,
-            height=430
+            height=430, 
+            bargap=0.175
             )
         
         #legend placement inside chart
