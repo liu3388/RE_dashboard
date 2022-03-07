@@ -212,15 +212,15 @@ with col2:
         "4 bedroom": "#00FF00",
     }
     
+    # fig = px.bar(df_chart1, x="date2", y="median_listing_price", 
+    #              title = 'Realtor.com median house price', 
+    #              text="median_listing_price_$", 
+    #              )
+    
     fig_2 = px.bar(df_rent_chart, 
                    x="year", 
                    y=["2 bedroom", "3 bedroom", "4 bedroom"], 
                    title = 'Rental trends', 
-                   # color_discrete_map={
-                   #     "2 bedroom": "orange",
-                   #     "3 bedroom": "#00FFFF",
-                   #     "4 bedroom": "red"
-                   #     }
                    )
                     
     
@@ -237,7 +237,6 @@ with col2:
         legend_title=None,
         yaxis_title=None,
         xaxis_title=None,
-    #    yaxis_range=[0, 400000],
         yaxis_tickprefix = '$', 
         showlegend=True,
         title_x=0.08,
