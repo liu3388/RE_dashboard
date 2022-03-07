@@ -178,11 +178,12 @@ with col1:
     price_change = df_chart1.iloc[1]['median_listing_price']/df_chart1.iloc[0]['median_listing_price'] -1
     my_formatter = "{:+.0%}"
     price_change = my_formatter.format(price_change)
-        
-    # y_position = df_chart1.iloc[1]['median_listing_price']*1.10
-    # fig.add_annotation(text=(f'<b>{price_change}</b>'),
-    #               xref="x", yref="y",
-    #               x=0.5, y=y_position, showarrow=False, font_size=18)
+    
+    ############################# above this line code is good
+    y_position = df_chart1.iloc[1]['median_listing_price']*1.10
+    fig.add_annotation(text=(f'<b>{price_change}</b>'),
+                  xref="x", yref="y",
+                  x=0.5, y=y_position, showarrow=False, font_size=18)
         
     
 
@@ -211,8 +212,12 @@ with col2:
         "4 bedroom": "#00FF00",
     }
     
-    fig_2 = px.bar(df_rent_chart, x="year", y=["2 bedroom", "3 bedroom", "4 bedroom"], 
-                     title = 'Rental trends', barmode = 'group', color_discrete_map=colors
+    fig_2 = px.bar(df_rent_chart, 
+                   x="year", 
+                   y=["2 bedroom", "3 bedroom", "4 bedroom"], 
+                   title = 'Rental trends', 
+                   barmode = 'group', 
+                   color_discrete_map=colors
                  )
     
     #format chart
