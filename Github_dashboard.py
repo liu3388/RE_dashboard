@@ -215,17 +215,11 @@ with col2:
         "3 bedroom": "#00FFFF",
         "4 bedroom": "#00FF00",
     }
-    
-    # fig = px.bar(df_chart1, x="date2", y="median_listing_price", 
-    #              title = 'Realtor.com median house price', 
-    #              text="median_listing_price_$", 
-    #              )
-    
+        
     fig_2 = px.bar(df_rent_chart, 
                    x="year", 
                    y="4 bedroom", 
                    title = 'Rental trends',
-                   
                    )
                     
     
@@ -251,13 +245,13 @@ with col2:
         )
     
     #legend placement inside chart
-    fig_2.update_layout(legend=dict(
-        orientation="h",
-        yanchor="bottom",
-        y=1.02,
-        xanchor="right",
-        x=1
-        ))
+    # fig_2.update_layout(legend=dict(
+    #     orientation="h",
+    #     yanchor="bottom",
+    #     y=1.02,
+    #     xanchor="right",
+    #     x=1
+    #     ))
     
     # fig_2.update_traces(texttemplate='%{value:$,.0f}', textfont_size=13, 
     #                     textposition='inside')
