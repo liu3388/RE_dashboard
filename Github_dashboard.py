@@ -221,10 +221,10 @@ with col2:
     #              text="median_listing_price_$", 
     #              )
     
-    fig_2 = px.bar(df_rent_chart2, 
-                   x="Bedrooms", 
-                   y="2022", 
-                   # title = 'Rental trends',
+    fig_2 = px.bar(df_rent_chart, 
+                   x="year", 
+                   y="4 bedroom", 
+                   title = 'Rental trends',
                    
                    )
                     
