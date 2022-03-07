@@ -183,8 +183,8 @@ with col1:
     y_position = df_chart1.iloc[1]['median_listing_price']*1.10
     
     fig.add_annotation(text="ADD",
-                       xref="x", 
-                       yref="y",
+                       # xref="x", 
+                       # yref="y",
                        x=0.5, 
                        y=y_position, 
                        showarrow=False, 
