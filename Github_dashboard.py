@@ -179,9 +179,9 @@ with col1:
     my_formatter = "{:+.0%}"
     price_change = my_formatter.format(price_change)
     
-    ############################# above this line code is good
     y_position = df_chart1.iloc[1]['median_listing_price']*1.10
     
+    ############################# above this line code is good
     fig.add_annotation(
                        # xref="x", 
                        # yref="y",
