@@ -134,21 +134,36 @@ df_chart1a = (df_chart1.loc[df_chart1['postal_code'] == (ZIP_SELECTED)])
 df_chart1b = (df_chart1a.loc[df_chart1a['date'] == (DATE_SELECTED)])
 df_chart1c = (df_chart1a.loc[df_chart1a['date'] == (END_DATE_SELECTED)])
 
-#set up variable for current house price
-current_price = df_chart1c.iloc[0]['median_listing_price']
 
-df_chart1 = df_chart1b.append(df_chart1c)
-df_chart1['date2']=df_chart1['date'].astype(str)
+# #set up variable for current house price
+# current_price = df_chart1c.iloc[0]['median_listing_price']
 
-#%% Chart_1: home price
+# df_chart1 = df_chart1b.append(df_chart1c)
+# df_chart1['date2']=df_chart1['date'].astype(str)
 
-fig = px.bar(df_chart1, x="date2", y="median_listing_price", 
-             title = 'Realtor.com median house price', 
-             # text="median_listing_price", 
-             barmode = 'group',
-             )
+# #%% Chart_1: home price
 
+# fig = px.bar(df_chart1, x="date2", y="median_listing_price", 
+#              title = 'Realtor.com median house price', 
+#              text="median_listing_price", 
+#              barmode = 'group',
+#              )
+
+#%%
 with col1:
+    #set up variable for current house price
+    current_price = df_chart1c.iloc[0]['median_listing_price']
+    
+    df_chart1 = df_chart1b.append(df_chart1c)
+    df_chart1['date2']=df_chart1['date'].astype(str)
+    
+    
+    fig = px.bar(df_chart1, x="date2", y="median_listing_price", 
+                 title = 'Realtor.com median house price', 
+                 # text="median_listing_price", 
+                 barmode = 'group',
+                 )
+    
     fig.update_layout(
         font_family="Arial",
         font_color="black",
@@ -169,7 +184,7 @@ with col1:
     
     fig.update_xaxes(type='category', linecolor='black')
     
-    fig.update_traces(textposition='inside', textfont_size=13, text='labels')
+    fig.update_traces(textposition='inside', textfont_size=13, text='median_listing_price')
     
     
     
