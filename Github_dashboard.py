@@ -201,10 +201,10 @@ df_rent.rename(columns={'fmr_1br': '1 bedroom', 'fmr_2br': '2 bedroom',
 df_rent_chart = df_rent.loc[df_rent['zip_code'] == int(ZIP_SELECTED)]
 df_rent_chart = df_rent_chart[['2 bedroom', '3 bedroom', '4 bedroom', 'year']]
 df_rent_chart = df_rent_chart[df_rent_chart['year'].isin(['2017', '2022'])]
-df_rent_chart2 = df_rent_chart.T
-df_rent_chart2 = df_rent_chart2.rename(columns=df_rent_chart2.iloc[3])
-df_rent_chart2['Bedrooms'] = [2,3,4,0]
-df_rent_chart2[:-1]
+# df_rent_chart2 = df_rent_chart.T
+# df_rent_chart2 = df_rent_chart2.rename(columns=df_rent_chart2.iloc[3])
+# df_rent_chart2['Bedrooms'] = [2,3,4,0]
+# df_rent_chart2[:-1]
 
 # start chart coding
 with col2:
