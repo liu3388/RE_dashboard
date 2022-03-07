@@ -135,20 +135,6 @@ df_chart1b = (df_chart1a.loc[df_chart1a['date'] == (DATE_SELECTED)])
 df_chart1c = (df_chart1a.loc[df_chart1a['date'] == (END_DATE_SELECTED)])
 
 
-# #set up variable for current house price
-# current_price = df_chart1c.iloc[0]['median_listing_price']
-
-# df_chart1 = df_chart1b.append(df_chart1c)
-# df_chart1['date2']=df_chart1['date'].astype(str)
-
-# #%% Chart_1: home price
-
-# fig = px.bar(df_chart1, x="date2", y="median_listing_price", 
-#              title = 'Realtor.com median house price', 
-#              text="median_listing_price", 
-#              barmode = 'group',
-#              )
-
 #%%
 with col1:
     #set up variable for current house price
@@ -160,7 +146,6 @@ with col1:
     fig = px.bar(df_chart1, x="date2", y="median_listing_price", 
                  title = 'Realtor.com median house price', 
                  text="median_listing_price", 
-                                  
                  )
     
     fig.update_layout(
@@ -183,16 +168,11 @@ with col1:
     
     fig.update_xaxes(type='category', linecolor='black')
     
-    # fig.update_traces(textposition='inside', textfont_size=13)
-    fig.update_traces(texttemplate='%{text:$,.0f}', textposition='inside')
-
-    
-    
-    
-    
-    # fig.update_traces(texttemplate='%{value:$,.0f}', textfont_size=13, 
-    #                     textposition='inside')
-    
+    fig.update_traces(textposition='inside', 
+                      textfont_size=13,
+                      # texttemplate='%{value:$,.0f}',
+                      )
+     
     
     #add that percentage price change label
     price_change = df_chart1.iloc[1]['median_listing_price']/df_chart1.iloc[0]['median_listing_price'] -1
