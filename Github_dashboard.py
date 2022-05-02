@@ -7,19 +7,13 @@ Created on Tue Dec 21 11:47:25 2021
 
 import pandas as pd
 import os
-import requests
 
 import streamlit as st
 import datetime as dt
-from datetime import datetime, timedelta
-from dateutil.relativedelta import relativedelta
 import numpy as np
 import numpy_financial as npf #DOWNLOAD: pip3 install numpy-financial
 import plotly.express as px
-import plotly.graph_objects as go
 
-import yfinance as yf
-from yahoofinancials import YahooFinancials
 
 #%% page setup
 st.set_page_config(layout="wide")  # this needs to be the first Streamlit command
@@ -935,6 +929,6 @@ with col1:
 
 
 #%% 
-#streamlit run C:\Tai\RE_project\script\streamlit\dashboard_08.py
+#streamlit run C:\Tai\RE_project\Github\script\Github_dashboard.py
 
 
