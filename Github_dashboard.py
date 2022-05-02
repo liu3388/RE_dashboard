@@ -52,9 +52,9 @@ url_income = 'https://raw.githubusercontent.com/liu3388/RE_input/main/med_househ
 df_income = pd.read_csv(url_income)
 
 #%% setup path to import csv files
-os.chdir("C:\\Tai\\RE_project\\input\\RE_input\\")
-path = os.getcwd()
-path_csv = path + "\\"
+# os.chdir("C:\\Tai\\RE_project\\input\\RE_input\\")
+# path = os.getcwd()
+# path_csv = path + "\\"
 
 #%% import csv files via local drive
 # df_zip = "zip_codes.csv"
