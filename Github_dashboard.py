@@ -33,29 +33,29 @@ st.sidebar.subheader("Inputs on home purchase")
 col1,col2,col3 = st.columns([4,4,2])
 
 #%% import other csv files via GitHub cloud
-# url_realtor = 'https://raw.githubusercontent.com/liu3388/RE_input/main/realtor.csv'
-# df_realtor = pd.read_csv(url_realtor)
+url_realtor = 'https://raw.githubusercontent.com/liu3388/RE_input/main/realtor.csv'
+df_realtor = pd.read_csv(url_realtor)
 
-# url_zipCodes = 'https://raw.githubusercontent.com/liu3388/RE_input/main/zip_codes.csv'
-# df_zip = pd.read_csv(url_zipCodes)
+url_zipCodes = 'https://raw.githubusercontent.com/liu3388/RE_input/main/zip_codes.csv'
+df_zip = pd.read_csv(url_zipCodes)
 
-# url_rent = 'https://raw.githubusercontent.com/liu3388/RE_input/main/rent.csv'
-# df_rent = pd.read_csv(url_rent)
+url_rent = 'https://raw.githubusercontent.com/liu3388/RE_input/main/rent.csv'
+df_rent = pd.read_csv(url_rent)
 
-# url_tax = 'https://raw.githubusercontent.com/liu3388/RE_input/main/tax.csv'
-# df_tax = pd.read_csv(url_tax)
+url_tax = 'https://raw.githubusercontent.com/liu3388/RE_input/main/tax.csv'
+df_tax = pd.read_csv(url_tax)
 
-# url_ins = 'https://raw.githubusercontent.com/liu3388/RE_input/main/insurance.csv'
-# df_ins = pd.read_csv(url_ins)
+url_ins = 'https://raw.githubusercontent.com/liu3388/RE_input/main/insurance.csv'
+df_ins = pd.read_csv(url_ins)
 
-# url_pop = 'https://raw.githubusercontent.com/liu3388/RE_input/main/population_state_county.csv'
-# df_pop = pd.read_csv(url_pop)
+url_pop = 'https://raw.githubusercontent.com/liu3388/RE_input/main/population_state_county.csv'
+df_pop = pd.read_csv(url_pop)
 
-# url_USpop = 'https://raw.githubusercontent.com/liu3388/RE_input/main/population_US.csv'
-# df_USpop = pd.read_csv(url_USpop)
+url_USpop = 'https://raw.githubusercontent.com/liu3388/RE_input/main/population_US.csv'
+df_USpop = pd.read_csv(url_USpop)
 
-# url_income = 'https://raw.githubusercontent.com/liu3388/RE_input/main/med_household_income.csv'
-# df_income = pd.read_csv(url_income)
+url_income = 'https://raw.githubusercontent.com/liu3388/RE_input/main/med_household_income.csv'
+df_income = pd.read_csv(url_income)
 
 #%% setup path to import csv files
 os.chdir("C:\\Tai\\RE_project\\input\\RE_input\\")
@@ -63,24 +63,24 @@ path = os.getcwd()
 path_csv = path + "\\"
 
 #%% import csv files via local drive
-df_zip = "zip_codes.csv"
-df_zip = pd.read_csv (path + "\\" + df_zip)
-df_rent = "rent.csv"
-df_rent = pd.read_csv (path + "\\" + df_rent)
-df_tax = "tax.csv"
-df_tax = pd.read_csv (path + "\\" + df_tax)
-df_ins = "insurance.csv"
-df_ins = pd.read_csv (path + "\\" + df_ins)
-df_pop = "population_state_county.csv"
-df_pop = pd.read_csv (path + "\\" + df_pop, encoding = "ISO-8859-1")
-df_USpop = "population_US.csv"
-df_USpop = pd.read_csv (path + "\\" + df_USpop)
-df_income = "med_household_income.csv"
-df_income = pd.read_csv (path + "\\" + df_income, encoding='ISO-8859-1')
+# df_zip = "zip_codes.csv"
+# df_zip = pd.read_csv (path + "\\" + df_zip)
+# df_rent = "rent.csv"
+# df_rent = pd.read_csv (path + "\\" + df_rent)
+# df_tax = "tax.csv"
+# df_tax = pd.read_csv (path + "\\" + df_tax)
+# df_ins = "insurance.csv"
+# df_ins = pd.read_csv (path + "\\" + df_ins)
+# df_pop = "population_state_county.csv"
+# df_pop = pd.read_csv (path + "\\" + df_pop, encoding = "ISO-8859-1")
+# df_USpop = "population_US.csv"
+# df_USpop = pd.read_csv (path + "\\" + df_USpop)
+# df_income = "med_household_income.csv"
+# df_income = pd.read_csv (path + "\\" + df_income, encoding='ISO-8859-1')
 
-#import in Realtor.com data csv file and merge with file with data for zip/city/county/state/sq feet data
-df_realtor = "realtor.csv"
-df_realtor = pd.read_csv (path_csv + "\\" + df_realtor)
+# #import in Realtor.com data csv file and merge with file with data for zip/city/county/state/sq feet data
+# df_realtor = "realtor.csv"
+# df_realtor = pd.read_csv (path_csv + "\\" + df_realtor)
 
 #%% create zip code lists and create side bar filter
 #convert column 'postal_code' to str, add zeroes to zips
