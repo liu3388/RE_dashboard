@@ -147,7 +147,7 @@ df_chart1['date2']=df_chart1['date'].astype(str)
 if "PRICE" not in st.session_state:
     price = int(current_price)
     # set the initial default value of the slider widget
-    st.session_state.PRICE = price
+#    st.session_state.PRICE = price
 
 PROPERTY_PRICE = st.sidebar.number_input(
     'Input price of property, $',
