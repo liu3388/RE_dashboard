@@ -6,3 +6,4 @@ numpy_financial==1.0.0
 yfinance==0.1.64
 plotly==5.4.0
 requests-html==0.10.0
+protobuf~=3.19.0
