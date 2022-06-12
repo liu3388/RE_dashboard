@@ -108,7 +108,7 @@ ZIP_SELECTED = st.sidebar.text_input('Type in zip code',
 
 #%%
 # create start date filter on side bar
-start_date = dt.date(year=2016,month=7,day=1)
+start_date = dt.date(year=2016,month=8,day=1)
 DATE_SELECTED = st.sidebar.date_input('Select purchase date (data starts at: 2016-07-01)', 
                                        min_value = start_date,
                                        value = start_date,
@@ -118,7 +118,7 @@ DATE_SELECTED = st.sidebar.date_input('Select purchase date (data starts at: 201
 DATE_SELECTED = DATE_SELECTED.replace(day=1)
 
 
-end_date = dt.date(year=2022,month=2,day=1)
+end_date = dt.date(year=2022,month=5,day=1)
 END_DATE_SELECTED = st.sidebar.date_input('Select end date (latest data: 2022-03-01)', 
                                        value = end_date,
                                        help="End date of comparison period. Usually the latest month with available data.",
