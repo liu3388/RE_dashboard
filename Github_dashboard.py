@@ -18,13 +18,13 @@ import plotly.express as px
 #%% page setup
 st.set_page_config(layout="wide")  # this needs to be the first Streamlit command
 
-st.title("RENT or BUY?")
-st.subheader("Set inputs on 'Control Panel' on left. Scroll down for more analysis.")
+st.title("RENT or BUY that house?")
+st.subheader("Set inputs on 'Control Panel' (left). Scroll down for more insights.")
 #st.markdown("*Check out the [article](https://www.crosstab.io/articles/staged-rollout-analysis) for a detailed walk-through!*")
 st.sidebar.title("Control Panel")
-st.sidebar.subheader("Inputs on home purchase")
+st.sidebar.subheader("User inputs on zip code, house price, rent, interest rates, down payment, etc.")
 
-col1,col2,col3 = st.columns([4,4,2])
+col1,col2 = st.columns([4,4])
 
 #%% import other csv files via GitHub cloud
 url_realtor = 'https://raw.githubusercontent.com/liu3388/RE_input/main/realtor.csv'
@@ -52,11 +52,11 @@ url_income = 'https://raw.githubusercontent.com/liu3388/RE_input/main/med_househ
 df_income = pd.read_csv(url_income)
 
 #%% setup path to import csv files
-# os.chdir("C:\\Tai\\RE_project\\input\\RE_input\\")
+# os.chdir("C:\\Tai\\RE_project\\input\\RE_inputs\\")
 # path = os.getcwd()
 # path_csv = path + "\\"
 
-#%% import csv files via local drive
+# # import csv files via local drive
 # df_zip = "zip_codes.csv"
 # df_zip = pd.read_csv (path + "\\" + df_zip)
 # df_rent = "rent.csv"
@@ -104,12 +104,46 @@ ZIP_SELECTED = st.sidebar.text_input('Type in zip code',
                                         help="Zip code of property.",
                                         key='ZIP_SELECTED')
 
+#%%
+#pull in chadrt for historical rental trends:
+#convert 'zip_code' from string to float
+zip_code_int = float(ZIP_SELECTED)
+    
+df_rent.rename(columns={'fmr_1br': '1 bedroom', 'fmr_2br': '2 bedroom',
+                          'fmr_3br': '3 bedroom', 'fmr_3br': '3 bedroom',
+                          'fmr_4br': '4 bedroom'}, inplace=True)
+df_rent_chart = df_rent.loc[df_rent['zip_code'] == zip_code_int]
 
+df_rent_chart = df_rent_chart[['2 bedroom', '3 bedroom', '4 bedroom', 'year']]
+df_rent_chart = df_rent_chart[df_rent_chart['year'].isin(['2017', '2022'])]
+
+#add rent columns to df
+br2_rent = df_rent_chart['2 bedroom'].iloc[1]
+br3_rent = df_rent_chart['3 bedroom'].iloc[1]
+br4_rent = df_rent_chart['4 bedroom'].iloc[1]    
+
+#%%
+# user input side-bar for rent
+
+if "RENT" not in st.session_state:
+    rent = int(br4_rent)
+    # set the initial default value of the slider widget
+    st.session_state.RENT = rent
+
+RENT_AMT = st.sidebar.number_input(
+    'Input rental value of property, $',
+    value = br4_rent,
+    step=20,
+    help="Property's rental value.",
+    key='RENT', 
+    )
+
+#st.write(st.session_state.INT_RATE) #this is just a check. Can # line when done. 
 
 #%%
 # create start date filter on side bar
-start_date = dt.date(year=2016,month=8,day=1)
-DATE_SELECTED = st.sidebar.date_input('Select purchase date (data starts at: 2016-07-01)', 
+start_date = dt.date(year=2017,month=7,day=1)
+DATE_SELECTED = st.sidebar.date_input('Select purchase date (data starts at: 2017-01-01)', 
                                        min_value = start_date,
                                        value = start_date,
                                        help="Begining of comparison period. Usually the purchase date of property.",
@@ -118,8 +152,8 @@ DATE_SELECTED = st.sidebar.date_input('Select purchase date (data starts at: 201
 DATE_SELECTED = DATE_SELECTED.replace(day=1)
 
 
-end_date = dt.date(year=2022,month=5,day=1)
-END_DATE_SELECTED = st.sidebar.date_input('Select end date (latest data: 2022-03-01)', 
+end_date = dt.date(year=2022,month=7,day=1)
+END_DATE_SELECTED = st.sidebar.date_input('Select end date (latest data: 2022-07-01)', 
                                        value = end_date,
                                        help="End date of comparison period. Usually the latest month with available data.",
                                        key='END_DATE_SELECTED')
@@ -159,7 +193,7 @@ PROPERTY_PRICE = st.sidebar.number_input(
 # user input side-bar for mortgage amount
 if "MORTGAGE" not in st.session_state:
     # set the initial default value of the slider widget
-    st.session_state.MORTGAGE = 20
+    st.session_state.MORTGAGE = 30
     
 LOAN = st.sidebar.slider(
     'Downpayment, % (usually 20%)',
@@ -204,46 +238,6 @@ INTEREST = st.sidebar.number_input(
 
 #st.write(st.session_state.INT_RATE) #this is just a check. Can # line when done. 
 
-#%%
-#pull in chadrt for historical rental trends:
-#convert 'zip_code' from string to float
-zip_code_int = float(ZIP_SELECTED)
-    
-df_rent.rename(columns={'fmr_1br': '1 bedroom', 'fmr_2br': '2 bedroom',
-                          'fmr_3br': '3 bedroom', 'fmr_3br': '3 bedroom',
-                          'fmr_4br': '4 bedroom'}, inplace=True)
-df_rent_chart = df_rent.loc[df_rent['zip_code'] == zip_code_int]
-
-df_rent_chart = df_rent_chart[['2 bedroom', '3 bedroom', '4 bedroom', 'year']]
-df_rent_chart = df_rent_chart[df_rent_chart['year'].isin(['2017', '2022'])]
-
-#add rent columns to df
-br2_rent = df_rent_chart['2 bedroom'].iloc[1]
-br3_rent = df_rent_chart['3 bedroom'].iloc[1]
-br4_rent = df_rent_chart['4 bedroom'].iloc[1]    
-
-
-
-
-#%%
-# user input side-bar for rent
-
-if "RENT" not in st.session_state:
-    rent = int(br4_rent)
-    # set the initial default value of the slider widget
-    st.session_state.RENT = rent
-
-RENT_AMT = st.sidebar.number_input(
-    'Input rental value of property, $',
-    value = br4_rent,
-    step=20,
-    help="Property's rental value.",
-    key='RENT', 
-    )
-
-
-#st.write(st.session_state.INT_RATE) #this is just a check. Can # line when done. 
-
 #%% set up and link variables to user input elements    
 interest_rate = INTEREST / 12 / 100
 n_periods = np.arange(LOAN_LIFE * 12) + 1
@@ -275,15 +269,19 @@ with col1:
         df = df[0:12]
         
         #pull in other dfs for tax, rent, and insurance costs
-        #find state
-        state = df_chart1.loc[(df_chart1['postal_code'] == (ZIP_SELECTED)) & (df_chart1['date']==(DATE_SELECTED)), 'state'].values
-        county = df_chart1.loc[(df_chart1['postal_code'] == (ZIP_SELECTED)) & (df_chart1['date']==(DATE_SELECTED)), 'county'].values
+        #convert state and county columns from object to string
+        df_chart1['state'] = df_chart1['state'].astype(pd.StringDtype())
+        df_chart1['county'] = df_chart1['county'].astype(pd.StringDtype())
+        #find state and county
+        state = df_chart1['state'].iat[0]
+        county = df_chart1['county'].iat[0]
         
-        Avg_property_tax = df_tax.loc[(df_tax['State'].isin(state)) & (df_tax['County'].isin(county)), 'Avg_property_tax'].values
-        Avg_house_price = df_tax.loc[(df_tax['State'].isin(state)) & (df_tax['County'].isin(county)), 'Avg_house_price'].values
+        #condition match and find property tax, house price and county tax rate
+        Avg_property_tax = df_tax.loc[(df_tax['State'] == (state)) & (df_tax['County'] == (county)), 'Avg_property_tax'].values
+        Avg_house_price = df_tax.loc[(df_tax['State'] == (state)) & (df_tax['County'] == (county)), 'Avg_house_price'].values
         county_tax_rate = Avg_property_tax / Avg_house_price
             
-        state_ins_rate = df_ins.loc[(df_ins['State'].isin(state))]
+        state_ins_rate = df_ins.loc[(df_ins['State'] == (state))]
         state_ins_rate = df_ins.iloc[0]['Insurance_costs_%']
         state_ins_rate = state_ins_rate[:-1]
         state_ins_rate = float(state_ins_rate)
@@ -292,7 +290,8 @@ with col1:
         insurance = (PROPERTY_PRICE * state_ins_rate * 0.9 / 100)/12
         df['Insurance'] = insurance
         tax = (PROPERTY_PRICE * county_tax_rate)/12
-        df['Tax'] = float(tax)
+        df['Tax'] = int(tax)
+        
         df['Ownership cashflow'] = df['Monthly Principal'] + df['Tax'] + df['Insurance'] + df['Monthly Interests']
         
         #pull in chadrt for historical rental trends:
@@ -362,13 +361,13 @@ with col1:
         fig_3.update_layout(
             font_family="Arial",
             font_color="black",
-            font_size=15,
+            font_size=13,
             title_font_family="Arial",
             title_font_color="black",
-            title = (f'<b>CASHFLOW – Owning a home vs. renting: next 12-months <br>Zip code: {ZIP_SELECTED}</b>'),
-            title_font_size=18,
+            title = (f'<b>Buy or Rent? next 12-months CASHFLOW <br>Zip code: {ZIP_SELECTED}</b>'),
+            title_font_size=15,
             legend_title_font_color="black",
-            legend_font_size=15,
+            legend_font_size=13,
             legend_title=None,
             yaxis_title=None,
             xaxis_title=None,
@@ -376,8 +375,8 @@ with col1:
             showlegend=True,
             title_x=0.08,
             title_y=0.93,
-            width=620,
-            height=430, 
+            width=500,
+            height=400, 
             bargap=0.2,
             legend=dict(
                 orientation="h",
@@ -404,7 +403,7 @@ with col1:
 
 
 #%%
-with col2:
+with col1:
     
     def Payments(rates, n_periods, periods, mortgage_amount):
 
@@ -425,15 +424,19 @@ with col2:
         df = df[0:12]
         
         #pull in other dfs for tax, rent, and insurance costs
-        #find state
-        state = df_chart1.loc[(df_chart1['postal_code'] == (ZIP_SELECTED)) & (df_chart1['date']==(DATE_SELECTED)), 'state'].values
-        county = df_chart1.loc[(df_chart1['postal_code'] == (ZIP_SELECTED)) & (df_chart1['date']==(DATE_SELECTED)), 'county'].values
+        #convert state and county columns from object to string
+        df_chart1['state'] = df_chart1['state'].astype(pd.StringDtype())
+        df_chart1['county'] = df_chart1['county'].astype(pd.StringDtype())
+        #find state and county
+        state = df_chart1['state'].iat[0]
+        county = df_chart1['county'].iat[0]
         
-        Avg_property_tax = df_tax.loc[(df_tax['State'].isin(state)) & (df_tax['County'].isin(county)), 'Avg_property_tax'].values
-        Avg_house_price = df_tax.loc[(df_tax['State'].isin(state)) & (df_tax['County'].isin(county)), 'Avg_house_price'].values
+        #condition match and find property tax, house price and county tax rate
+        Avg_property_tax = df_tax.loc[(df_tax['State'] == (state)) & (df_tax['County'] == (county)), 'Avg_property_tax'].values
+        Avg_house_price = df_tax.loc[(df_tax['State'] == (state)) & (df_tax['County'] == (county)), 'Avg_house_price'].values
         county_tax_rate = Avg_property_tax / Avg_house_price
             
-        state_ins_rate = df_ins.loc[(df_ins['State'].isin(state))]
+        state_ins_rate = df_ins.loc[(df_ins['State'] == (state))]
         state_ins_rate = df_ins.iloc[0]['Insurance_costs_%']
         state_ins_rate = state_ins_rate[:-1]
         state_ins_rate = float(state_ins_rate)
@@ -442,7 +445,7 @@ with col2:
         insurance = (PROPERTY_PRICE * state_ins_rate * 0.9 / 100)/12
         df['Insurance'] = insurance
         tax = (PROPERTY_PRICE * county_tax_rate)/12
-        df['Tax'] = float(tax)
+        df['Tax'] = int(tax)
         df['Ownership costs'] = df['Tax'] + df['Insurance'] + df['Monthly Interests']
         
         #pull in chadrt for historical rental trends:
@@ -509,14 +512,14 @@ with col2:
         fig_3.update_layout(
             font_family="Arial",
             font_color="black",
-            font_size=15,
+            font_size=12,
             title_font_family="Arial",
             title_font_color="black",
-            title  = (f'<b>COST: Owning a home vs. renting: next 12-months <br>Zip code: {ZIP_SELECTED}</b>'),
+            title  = (f'<b>Buy or Rent? next 12-months OWNERSHIP COSTS<br>Zip code: {ZIP_SELECTED}</b>'),
             # title='<b>Est. home ownership costs vs. renting: next 12-months</b>',
-            title_font_size=18,
+            title_font_size=15,
             legend_title_font_color="black",
-            legend_font_size=15,
+            legend_font_size=12,
             legend_title=None,
             yaxis_title=None,
             xaxis_title=None,
@@ -524,8 +527,8 @@ with col2:
             showlegend=True,
             title_x=0.08,
             title_y=0.925,
-            width=600,
-            height=430, 
+            width=550,
+            height=400, 
             bargap=0.2,
             legend=dict(
                 orientation="h",
@@ -556,19 +559,19 @@ with col2:
 #%% Chart: home price
 
 fig = px.bar(df_chart1, x="date2", y="median_listing_price", 
-             title = 'Realtor.com median house price', 
-             text="median_listing_price", barmode = 'group'
-             )
+              title = 'Realtor.com median house price', 
+              text="median_listing_price", barmode = 'group'
+              )
 
 with col1:
     fig.update_layout(
         font_family="Arial",
         font_color="black",
-        font_size=15,
+        font_size=12,
         title_font_family="Arial",
         title_font_color="black",
         title = (f'<b>Realtor.com median listing house price  <br>Zip code: {ZIP_SELECTED}</b>'),
-        title_font_size=18,
+        title_font_size=13,
         legend_title_font_color="black",
         yaxis_title=None,
         xaxis_title=None,
@@ -577,7 +580,7 @@ with col1:
         showlegend=False,
         title_x=0.08,
         title_y=0.925,
-        width=600,
+        width=520,
         height=430, 
         bargap=0.2
         )
@@ -613,7 +616,7 @@ df_rent_chart = df_rent_chart[df_rent_chart['year'].isin(['2017', '2022'])]
 br4_rent = df_rent_chart.iloc[1]['4 bedroom']
 
 # start chart coding
-with col2:
+with col1:
     
     # Defining Custom Colors
     colors = {
@@ -668,8 +671,12 @@ with col2:
     
 
 #%% set up for population charts
-state = df_chart1.loc[(df_chart1['postal_code'] == (ZIP_SELECTED)) & (df_chart1['date']==(DATE_SELECTED)), 'state'].values
-county = df_chart1.loc[(df_chart1['postal_code'] == (ZIP_SELECTED)) & (df_chart1['date']==(DATE_SELECTED)), 'county'].values
+#convert state and county columns from object to string
+df_chart1['state'] = df_chart1['state'].astype(pd.StringDtype())
+df_chart1['county'] = df_chart1['county'].astype(pd.StringDtype())
+#find state and county
+state = df_chart1['state'].iat[0]
+county = df_chart1['county'].iat[0]
 
 Year_1 = str(2016)
 Year_2 = str(2017)
@@ -678,11 +685,11 @@ Year_4 = str(2019)
 Year_5 = str(2020)
         
 df_pop = df_pop.rename(columns={'STNAME': 'State', 'CTYNAME': 'County'})
-county_pop = df_pop.loc[(df_pop['State'].isin(state))]
-county_pop = df_pop.loc[(df_pop['State'].isin(state)) & (df_pop['County'].isin(county))]
+county_pop = df_pop.loc[(df_pop['State'] == (state))]
+county_pop = df_pop.loc[(df_pop['State'] == (state)) & (df_pop['County'] == (county))]
 county_pop = county_pop[[Year_1, Year_2, Year_3, Year_4, Year_5]]
         
-state_pop = df_pop.loc[(df_pop['State'].isin(state)) & (df_pop['County'].isin(state))]
+state_pop = df_pop.loc[(df_pop['State'] == (state)) & (df_pop['County'] == (state))]
 state_pop = state_pop[[Year_1, Year_2, Year_3, Year_4, Year_5]]
         
 US_pop = df_USpop
@@ -794,7 +801,7 @@ df_inc_chart['Year'].astype(int)
 df_inc_chart = df_inc_chart.sort_values(by='Year', ascending=True)
 
 #%% first income per capita chart (absolute $ amt)
-with col2:
+with col1:
     def chart_income():
         # Defining Custom Colors
         colors = {
