@@ -18,8 +18,28 @@ import plotly.express as px
 #%% page setup
 st.set_page_config(layout="wide")  # this needs to be the first Streamlit command
 
+remove_padding_css = """
+    .block-container {
+    padding: 0 1rem;
+    }
+    """
+st.markdown(
+    "<style>"
+    + remove_padding_css
+    + "</styles>",
+    unsafe_allow_html=True,
+)
+
 st.title("RENT or BUY that house?")
 st.subheader("Set inputs on 'Control Panel' (left). Scroll down for more insights.")
+#remove white space in header:
+st.write('<style>div.block-container{padding-top:2rem;}</style>', unsafe_allow_html=True)
+
+#remove more white space
+
+
+
+
 #st.markdown("*Check out the [article](https://www.crosstab.io/articles/staged-rollout-analysis) for a detailed walk-through!*")
 st.sidebar.title("Control Panel")
 st.sidebar.subheader("User inputs on zip code, house price, rent, interest rates, down payment, etc.")
@@ -375,7 +395,7 @@ with col1:
             showlegend=True,
             title_x=0.08,
             title_y=0.93,
-            width=500,
+            width=450,
             height=400, 
             bargap=0.2,
             legend=dict(
@@ -527,7 +547,7 @@ with col1:
             showlegend=True,
             title_x=0.08,
             title_y=0.925,
-            width=550,
+            width=500,
             height=400, 
             bargap=0.2,
             legend=dict(
@@ -580,8 +600,8 @@ with col1:
         showlegend=False,
         title_x=0.08,
         title_y=0.925,
-        width=520,
-        height=430, 
+        width=500,
+        height=400, 
         bargap=0.2
         )
     
@@ -647,8 +667,8 @@ with col1:
         showlegend=True,
         title_x=0.08,
         title_y=0.925,
-        width=600,
-        height=430, 
+        width=500,
+        height=400, 
         bargap=0.175
         )
     
@@ -754,8 +774,8 @@ with col1:
             showlegend=False,
             title_x=0.03,
             title_y=0.925,
-            width=600,
-            height=430, 
+            width=500,
+            height=400, 
             bargap=0.175
             )
         
@@ -833,8 +853,8 @@ with col1:
             showlegend=True,
             title_x=0.08,
             title_y=0.925,
-            width=600,
-            height=430, 
+            width=500,
+            height=400, 
             bargap=0.175
             )
         
@@ -906,8 +926,8 @@ with col1:
             showlegend=True,
             title_x=0.08,
             title_y=0.925,
-            width=600,
-            height=430, 
+            width=500,
+            height=400, 
             bargap=0.175
             )
         
