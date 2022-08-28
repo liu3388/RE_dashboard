@@ -35,7 +35,7 @@ st.markdown(
 )
 
 st.title("RENT or BUY that house?")
-st.subheader("Set inputs on 'Control Panel' (left). Scroll down for more insights.")
+st.subheader("Set inputs on 'Control Panel' (click '>' on upper left corner). Scroll down for more amazing insights.")
 #remove white space in header:
 st.write('<style>div.block-container{padding-top:2rem;}</style>', unsafe_allow_html=True)
 
@@ -236,7 +236,7 @@ INTEREST = st.sidebar.number_input(
 #%%
 # create start date filter on side bar
 # start_date = dt.date(year=2017,month=7,day=1)
-DATE_SELECTED = st.sidebar.date_input('Select purchase date (data starts at: 2017-01-01)', 
+DATE_SELECTED = st.sidebar.date_input('To estimate price change: Select purchase date (data starts at: 2017-01-01)', 
                                        min_value = start_date,
                                        value = start_date,
                                        help="Begining of comparison period. Usually the purchase date of property.",
@@ -246,7 +246,7 @@ DATE_SELECTED = DATE_SELECTED.replace(day=1)
 
 
 # end_date = dt.date(year=2022,month=7,day=1)
-END_DATE_SELECTED = st.sidebar.date_input('Select end date (latest data: 2022-07-01)', 
+END_DATE_SELECTED = st.sidebar.date_input('To estimate price change: Select end date (latest data: 2022-07-01)', 
                                        value = end_date,
                                        help="End date of comparison period. Usually the latest month with available data.",
                                        key='END_DATE_SELECTED')
@@ -393,7 +393,7 @@ with col1:
             font_size=13,
             title_font_family="Arial",
             title_font_color="black",
-            title = (f'<b>Buy or Rent? next 12-months CASHFLOW <br>Zip code: {ZIP_SELECTED}</b>'),
+            title = (f'<b>Buy vs Rent: next 12-months CASHFLOW <br>Zip code: {ZIP_SELECTED}</b>'),
             title_font_size=15,
             legend_title_font_color="black",
             legend_font_size=13,
@@ -404,7 +404,7 @@ with col1:
             showlegend=True,
             title_x=0.08,
             title_y=0.93,
-            width=480,
+            width=460,
             height=400, 
             bargap=0.2,
             legend=dict(
@@ -548,7 +548,7 @@ with col1:
             font_size=13,
             title_font_family="Arial",
             title_font_color="black",
-            title  = (f'<b>Buy or Rent? next 12-months OWNERSHIP COSTS<br>Zip code: {ZIP_SELECTED}</b>'),
+            title  = (f'<b>Buy vs. Rent: next 12-months REAL COSTS<br>Zip code: {ZIP_SELECTED}</b>'),
             # title='<b>Est. home ownership costs vs. renting: next 12-months</b>',
             title_font_size=15,
             legend_title_font_color="black",
@@ -560,7 +560,7 @@ with col1:
             showlegend=True,
             title_x=0.08,
             title_y=0.925,
-            width=480,
+            width=460,
             height=400, 
             bargap=0.2,
             legend=dict(
@@ -603,11 +603,11 @@ with col1:
     fig.update_layout(
         font_family="Arial",
         font_color="black",
-        font_size=12,
+        font_size=13,
         title_font_family="Arial",
         title_font_color="black",
         title = (f'<b>Realtor.com median listing house price  <br>Zip code: {ZIP_SELECTED}</b>'),
-        title_font_size=13,
+        title_font_size=15,
         legend_title_font_color="black",
         yaxis_title=None,
         xaxis_title=None,
@@ -616,7 +616,7 @@ with col1:
         showlegend=False,
         title_x=0.08,
         title_y=0.925,
-        width=480,
+        width=460,
         height=400, 
         bargap=0.2
         )
@@ -672,11 +672,11 @@ with col1:
     fig_2.update_layout(
         font_family="Arial",
         font_color="black",
-        font_size=15,
+        font_size=13,
         title_font_family="Arial",
         title_font_color="black",
         title = (f'<b>Rental trends: monthly rent costs <br>Zip code: {ZIP_SELECTED}</b>'),
-        title_font_size=18,
+        title_font_size=15,
         legend_title_font_color="black",
         legend_title=None,
         yaxis_title=None,
@@ -686,7 +686,7 @@ with col1:
         showlegend=True,
         title_x=0.08,
         title_y=0.925,
-        width=480,
+        width=460,
         height=400, 
         bargap=0.175
         )
@@ -781,11 +781,11 @@ with col1:
         fig_4.update_layout(
             font_family="Arial",
             font_color="black",
-            font_size=15,
+            font_size=13,
             title_font_family="Arial",
             title_font_color="black",
             title='<b>County/state/U.S. population growth rates, 2016-2020</b>',
-            title_font_size=18,
+            title_font_size=15,
             legend_title_font_color="black",
             legend_title=None,
             yaxis_title=None,
@@ -796,7 +796,7 @@ with col1:
             showlegend=False,
             title_x=0.03,
             title_y=0.925,
-            width=480,
+            width=460,
             height=400, 
             bargap=0.175
             )
@@ -864,11 +864,11 @@ with col1:
         fig_5.update_layout(
             font_family="Arial",
             font_color="black",
-            font_size=15,
+            font_size=13,
             title_font_family="Arial",
             title_font_color="black",
             title='<b>Median household income</b>',
-            title_font_size=18,
+            title_font_size=15,
             legend_title_font_color="black",
             legend_title=None,
             yaxis_title=None,
@@ -878,7 +878,7 @@ with col1:
             showlegend=True,
             title_x=0.08,
             title_y=0.925,
-            width=480,
+            width=460,
             height=400, 
             bargap=0.175
             )
@@ -940,11 +940,11 @@ with col1:
         fig_6.update_layout(
             font_family="Arial",
             font_color="black",
-            font_size=15,
+            font_size=13,
             title_font_family="Arial",
             title_font_color="black",
             title='<b>Median household income, year-on-year change</b>',
-            title_font_size=18,
+            title_font_size=15,
             legend_title_font_color="black",
             legend_title=None,
             yaxis_title=None,
@@ -954,7 +954,7 @@ with col1:
             showlegend=True,
             title_x=0.08,
             title_y=0.925,
-            width=500,
+            width=470,
             height=400, 
             bargap=0.175
             )
