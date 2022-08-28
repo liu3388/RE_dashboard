@@ -35,7 +35,7 @@ st.markdown(
 )
 
 st.title("RENT or BUY that house?")
-st.subheader("Set inputs on 'Control Panel' (click '>' on upper left corner). Scroll down for more amazing insights.")
+st.subheader("Set inputs on 'Control Panel' (click '>' on upper left corner). Scroll down for more insights.")
 #remove white space in header:
 st.write('<style>div.block-container{padding-top:2rem;}</style>', unsafe_allow_html=True)
 
@@ -356,8 +356,6 @@ with col1:
         total_3br = df['3 bedroom'].sum()
         total_4br = df['4 bedroom'].sum()
         data =[]
-        df_chart3 = pd.DataFrame(data, columns=['cashflow types', 'Ownership cashflow', '2 bedroom', 
-                                                '3 bedroom', 'User input'])
            
         df_chart3 = pd.DataFrame(columns=['Ownership <br> cashflow','2 bedroom','3 bedroom',
                                           'User input'], index=['Mortgage interest', 'Principal repayment'
@@ -513,16 +511,14 @@ with col1:
         total_3br = df['3 bedroom'].sum()
         total_4br = df['4 bedroom'].sum()
         data =[]
-        df_chart3 = pd.DataFrame(data, columns=['Cost types', 'Ownership costs', '2 bedroom', 
-                                                '3 bedroom', 'User input'])
            
-        df_chart3 = pd.DataFrame(columns=['Ownership costs','2 bedroom','3 bedroom',
+        df_chart3 = pd.DataFrame(columns=['Ownership <br> costs','2 bedroom','3 bedroom',
                                           'User input'], index=['Mortgage interest', 
                                           'Tax', 'Insurance', 'Rent'])
                                                                         
-        df_chart3.loc['Interest'] = pd.Series({'Ownership costs':total_int})
-        df_chart3.loc['Tax'] = pd.Series({'Ownership costs':total_tax})
-        df_chart3.loc['Insurance'] = pd.Series({'Ownership costs':total_ins})
+        df_chart3.loc['Interest'] = pd.Series({'Ownership <br> costs':total_int})
+        df_chart3.loc['Tax'] = pd.Series({'Ownership <br> costs':total_tax})
+        df_chart3.loc['Insurance'] = pd.Series({'Ownership <br> costs':total_ins})
         df_chart3.loc['Rent'] = pd.Series({'2 bedroom':total_2br, '3 bedroom':total_3br, 
                                             'User input':total_4br})
         
