@@ -14,10 +14,14 @@ import numpy as np
 import numpy_financial as npf #DOWNLOAD: pip3 install numpy-financial
 import plotly.express as px
 
+#%% update dates
+start_date = dt.date(year=2017,month=7,day=1)
+end_date = dt.date(year=2022,month=7,day=1)
 
 #%% page setup
 st.set_page_config(layout="wide")  # this needs to be the first Streamlit command
 
+#remove more white space
 remove_padding_css = """
     .block-container {
     padding: 0 1rem;
@@ -34,9 +38,6 @@ st.title("RENT or BUY that house?")
 st.subheader("Set inputs on 'Control Panel' (left). Scroll down for more insights.")
 #remove white space in header:
 st.write('<style>div.block-container{padding-top:2rem;}</style>', unsafe_allow_html=True)
-
-#remove more white space
-
 
 
 
@@ -160,43 +161,17 @@ RENT_AMT = st.sidebar.number_input(
 
 #st.write(st.session_state.INT_RATE) #this is just a check. Can # line when done. 
 
-#%%
-# create start date filter on side bar
-start_date = dt.date(year=2017,month=7,day=1)
-DATE_SELECTED = st.sidebar.date_input('Select purchase date (data starts at: 2017-01-01)', 
-                                       min_value = start_date,
-                                       value = start_date,
-                                       help="Begining of comparison period. Usually the purchase date of property.",
-                                       key='DATE_SELECTED')
 
-DATE_SELECTED = DATE_SELECTED.replace(day=1)
+#%% find current price of property
 
-
-end_date = dt.date(year=2022,month=7,day=1)
-END_DATE_SELECTED = st.sidebar.date_input('Select end date (latest data: 2022-07-01)', 
-                                       value = end_date,
-                                       help="End date of comparison period. Usually the latest month with available data.",
-                                       key='END_DATE_SELECTED')
-
-END_DATE_SELECTED = END_DATE_SELECTED.replace(day=1)
-
-
-
-
-#%% User input results
 df_chart1a = (df_chart1.loc[df_chart1['postal_code'] == (ZIP_SELECTED)])
-df_chart1b = (df_chart1a.loc[df_chart1a['date'] == (DATE_SELECTED)])
-df_chart1c = (df_chart1a.loc[df_chart1a['date'] == (END_DATE_SELECTED)])
+df_chart1b = (df_chart1a.loc[df_chart1a['date'] == (start_date)])
+df_chart1c = (df_chart1a.loc[df_chart1a['date'] == (end_date)])
 
 #set up variable for current house price
 current_price = df_chart1c.iloc[0]['median_listing_price']
 
-df_chart1 = df_chart1b.append(df_chart1c)
-df_chart1['date2']=df_chart1['date'].astype(str)
-
-
-
-#%% Set up session state and user input side bars for mortgage amt, mortgage terms, and interest rates
+# Set up session state and user input side bars for mortgage amt, mortgage terms, and interest rates
 # user input side-bar for property price
 if "PRICE" not in st.session_state:
     price = int(current_price)
@@ -213,10 +188,10 @@ PROPERTY_PRICE = st.sidebar.number_input(
 # user input side-bar for mortgage amount
 if "MORTGAGE" not in st.session_state:
     # set the initial default value of the slider widget
-    st.session_state.MORTGAGE = 30
+    st.session_state.MORTGAGE = 20
     
 LOAN = st.sidebar.slider(
-    'Downpayment, % (usually 20%)',
+    'Downpayment, %',
     min_value = 0,
     max_value = 100,
     value = 20,
@@ -258,6 +233,40 @@ INTEREST = st.sidebar.number_input(
 
 #st.write(st.session_state.INT_RATE) #this is just a check. Can # line when done. 
 
+#%%
+# create start date filter on side bar
+# start_date = dt.date(year=2017,month=7,day=1)
+DATE_SELECTED = st.sidebar.date_input('Select purchase date (data starts at: 2017-01-01)', 
+                                       min_value = start_date,
+                                       value = start_date,
+                                       help="Begining of comparison period. Usually the purchase date of property.",
+                                       key='DATE_SELECTED')
+
+DATE_SELECTED = DATE_SELECTED.replace(day=1)
+
+
+# end_date = dt.date(year=2022,month=7,day=1)
+END_DATE_SELECTED = st.sidebar.date_input('Select end date (latest data: 2022-07-01)', 
+                                       value = end_date,
+                                       help="End date of comparison period. Usually the latest month with available data.",
+                                       key='END_DATE_SELECTED')
+
+END_DATE_SELECTED = END_DATE_SELECTED.replace(day=1)
+
+
+
+
+#%% User input results
+df_chart1a = (df_chart1.loc[df_chart1['postal_code'] == (ZIP_SELECTED)])
+df_chart1b = (df_chart1a.loc[df_chart1a['date'] == (DATE_SELECTED)])
+df_chart1c = (df_chart1a.loc[df_chart1a['date'] == (END_DATE_SELECTED)])
+
+#set up variable for current house price
+current_price = df_chart1c.iloc[0]['median_listing_price']
+
+df_chart1 = df_chart1b.append(df_chart1c)
+df_chart1['date2']=df_chart1['date'].astype(str)
+# 
 #%% set up and link variables to user input elements    
 interest_rate = INTEREST / 12 / 100
 n_periods = np.arange(LOAN_LIFE * 12) + 1
@@ -375,7 +384,7 @@ with col1:
                   y=['Interest', 'Principal', 'Tax', 'Insurance', 'Rent'],
                   title = 'Home ownership cashflow vs. renting, next 5-years',
                   barmode = 'stack', orientation=('v'),
-                  color_discrete_map=colors
+                  color_discrete_map=colors,
                   )
     
         fig_3.update_layout(
@@ -395,7 +404,7 @@ with col1:
             showlegend=True,
             title_x=0.08,
             title_y=0.93,
-            width=450,
+            width=480,
             height=400, 
             bargap=0.2,
             legend=dict(
@@ -403,7 +412,8 @@ with col1:
                 yanchor="bottom",
                 y=1.02,
                 xanchor="center",
-                x=0.5)
+                x=0.5),
+                       
             )
         
         #plot sum of ownership costs as annotation text
@@ -416,8 +426,11 @@ with col1:
         fig_3.update_traces(texttemplate='%{value:$,.0f}', textfont_size=15, textposition='inside')
         fig_3.update_xaxes(type='category', linecolor='black')
         
+        #turn off mode bar on top:
+        config = {'displayModeBar': False}
+        
         #place the chart in streamlit column
-        st.plotly_chart(fig_3)
+        st.plotly_chart(fig_3, config=config)
         
     Payments(interest_rate, n_periods, loan_term, mortgage_amount)
 
@@ -532,14 +545,14 @@ with col1:
         fig_3.update_layout(
             font_family="Arial",
             font_color="black",
-            font_size=12,
+            font_size=13,
             title_font_family="Arial",
             title_font_color="black",
             title  = (f'<b>Buy or Rent? next 12-months OWNERSHIP COSTS<br>Zip code: {ZIP_SELECTED}</b>'),
             # title='<b>Est. home ownership costs vs. renting: next 12-months</b>',
             title_font_size=15,
             legend_title_font_color="black",
-            legend_font_size=12,
+            legend_font_size=13,
             legend_title=None,
             yaxis_title=None,
             xaxis_title=None,
@@ -547,7 +560,7 @@ with col1:
             showlegend=True,
             title_x=0.08,
             title_y=0.925,
-            width=500,
+            width=480,
             height=400, 
             bargap=0.2,
             legend=dict(
@@ -555,7 +568,7 @@ with col1:
                 yanchor="bottom",
                 y=1.02,
                 xanchor="center",
-                x=0.5)
+                x=0.5),
             )
         
            
@@ -568,10 +581,13 @@ with col1:
         
     
         fig_3.update_traces(texttemplate='%{value:$,.0f}', textfont_size=15, textposition='inside')
-        fig_3.update_xaxes(type='category', linecolor='black')
+        fig_3.update_xaxes(type='category', linecolor='black', tickangle=0)
+        
+        #turn off mode bar on top:
+        config = {'displayModeBar': False}
         
         #place the chart in streamlit column
-        st.plotly_chart(fig_3)
+        st.plotly_chart(fig_3, config=config)
         
     Payments(interest_rate, n_periods, loan_term, mortgage_amount)
 
@@ -600,7 +616,7 @@ with col1:
         showlegend=False,
         title_x=0.08,
         title_y=0.925,
-        width=500,
+        width=480,
         height=400, 
         bargap=0.2
         )
@@ -619,8 +635,11 @@ with col1:
                       marker_color='#0000FF')
     fig.update_xaxes(type='category', linecolor='black')
     
+    #turn off mode bar on top:
+    config = {'displayModeBar': False}
+    
     #place the chart in streamlit column
-    st.plotly_chart(fig)
+    st.plotly_chart(fig, config=config)
 
 #%% fig_2: rental trends
 
@@ -667,7 +686,7 @@ with col1:
         showlegend=True,
         title_x=0.08,
         title_y=0.925,
-        width=500,
+        width=480,
         height=400, 
         bargap=0.175
         )
@@ -686,8 +705,11 @@ with col1:
     fig_2.update_xaxes(type='category', linecolor='black')
     fig_2.update_yaxes(dtick=500)
     
+    #turn off mode bar on top:
+    config = {'displayModeBar': False}
+    
     #place the chart in streamlit column
-    st.plotly_chart(fig_2)
+    st.plotly_chart(fig_2, config = config)
     
 
 #%% set up for population charts
@@ -774,7 +796,7 @@ with col1:
             showlegend=False,
             title_x=0.03,
             title_y=0.925,
-            width=500,
+            width=480,
             height=400, 
             bargap=0.175
             )
@@ -785,8 +807,11 @@ with col1:
                             textposition='inside', marker_color='#9A32CD')
         fig_4.update_xaxes(linecolor='black')
         
+        #turn off mode bar on top:
+        config = {'displayModeBar': False}
+        
         #place chart in proper column
-        st.plotly_chart(fig_4)
+        st.plotly_chart(fig_4, config = config)
         
     #run function for chart_5            
     chart_4()
@@ -853,7 +878,7 @@ with col1:
             showlegend=True,
             title_x=0.08,
             title_y=0.925,
-            width=500,
+            width=480,
             height=400, 
             bargap=0.175
             )
@@ -872,8 +897,11 @@ with col1:
         fig_5.update_xaxes(type='category', linecolor='black')
         # fig_5.update_yaxes(dtick=500)
         
+        #turn off mode bar on top:
+        config = {'displayModeBar': False}
+        
         # #place the chart in streamlit column
-        st.plotly_chart(fig_5)
+        st.plotly_chart(fig_5, config = config)
         
     #run function for chart_5            
     chart_income()
@@ -947,8 +975,11 @@ with col1:
         fig_6.update_xaxes(type='category', linecolor='black')
         # fig_5.update_yaxes(dtick=500)
         
+        #turn off mode bar on top:
+        config = {'displayModeBar': False}
+        
         #place the chart in streamlit column
-        st.plotly_chart(fig_6)
+        st.plotly_chart(fig_6, config = config)
         
     #run function for chart_5            
     chart_income()
