@@ -45,7 +45,7 @@ st.write('<style>div.block-container{padding-top:2rem;}</style>', unsafe_allow_h
 st.sidebar.title("Control Panel")
 st.sidebar.subheader("User inputs on zip code, house price, rent, interest rates, down payment, etc.")
 
-col1,col2 = st.columns([4,4])
+col1,col2,col3 = st.columns([3,3,3])
 
 #%% import other csv files via GitHub cloud
 url_realtor = 'https://raw.githubusercontent.com/liu3388/RE_input/main/realtor.csv'
@@ -190,7 +190,7 @@ if "MORTGAGE" not in st.session_state:
     # set the initial default value of the slider widget
     st.session_state.MORTGAGE = 20
     
-LOAN = st.sidebar.slider(
+LOAN = st.sidebar.number_input(
     'Downpayment, %',
     min_value = 0,
     max_value = 100,
@@ -595,7 +595,7 @@ fig = px.bar(df_chart1, x="date2", y="median_listing_price",
               text="median_listing_price", barmode = 'group'
               )
 
-with col1:
+with col2:
     fig.update_layout(
         font_family="Arial",
         font_color="black",
@@ -651,7 +651,7 @@ df_rent_chart = df_rent_chart[df_rent_chart['year'].isin(['2017', '2022'])]
 br4_rent = df_rent_chart.iloc[1]['4 bedroom']
 
 # start chart coding
-with col1:
+with col2:
     
     # Defining Custom Colors
     colors = {
@@ -842,7 +842,7 @@ df_inc_chart['Year'].astype(int)
 df_inc_chart = df_inc_chart.sort_values(by='Year', ascending=True)
 
 #%% first income per capita chart (absolute $ amt)
-with col1:
+with col2:
     def chart_income():
         # Defining Custom Colors
         colors = {
