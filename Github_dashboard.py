@@ -16,7 +16,7 @@ import plotly.express as px
 
 #%% update dates
 start_date = dt.date(year=2017,month=7,day=1)
-end_date = dt.date(year=2022,month=7,day=1)
+end_date = dt.date(year=2022,month=8,day=1)
 
 #%% page setup
 st.set_page_config(layout="wide")  # this needs to be the first Streamlit command
@@ -34,8 +34,8 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-st.title("RENT or BUY that house?")
-st.subheader("Set inputs on 'Control Panel' (click '>' on upper left corner). Scroll down for more insights.")
+st.title("ApexaVision.com")
+st.subheader("RENT or BUY that house? Set inputs on 'Control Panel' (click '>' on upper left corner). Scroll down for more insights.")
 #remove white space in header:
 st.write('<style>div.block-container{padding-top:2rem;}</style>', unsafe_allow_html=True)
 
@@ -48,54 +48,54 @@ st.sidebar.subheader("User inputs on zip code, house price, rent, interest rates
 col1,col2,col3 = st.columns([3,3,3])
 
 #%% import other csv files via GitHub cloud
-url_realtor = 'https://raw.githubusercontent.com/liu3388/RE_input/main/realtor.csv'
-df_realtor = pd.read_csv(url_realtor)
+# url_realtor = 'https://raw.githubusercontent.com/liu3388/RE_input/main/realtor.csv'
+# df_realtor = pd.read_csv(url_realtor)
 
-url_zipCodes = 'https://raw.githubusercontent.com/liu3388/RE_input/main/zip_codes.csv'
-df_zip = pd.read_csv(url_zipCodes)
+# url_zipCodes = 'https://raw.githubusercontent.com/liu3388/RE_input/main/zip_codes.csv'
+# df_zip = pd.read_csv(url_zipCodes)
 
-url_rent = 'https://raw.githubusercontent.com/liu3388/RE_input/main/rent.csv'
-df_rent = pd.read_csv(url_rent)
+# url_rent = 'https://raw.githubusercontent.com/liu3388/RE_input/main/rent.csv'
+# df_rent = pd.read_csv(url_rent)
 
-url_tax = 'https://raw.githubusercontent.com/liu3388/RE_input/main/tax.csv'
-df_tax = pd.read_csv(url_tax)
+# url_tax = 'https://raw.githubusercontent.com/liu3388/RE_input/main/tax.csv'
+# df_tax = pd.read_csv(url_tax)
 
-url_ins = 'https://raw.githubusercontent.com/liu3388/RE_input/main/insurance.csv'
-df_ins = pd.read_csv(url_ins)
+# url_ins = 'https://raw.githubusercontent.com/liu3388/RE_input/main/insurance.csv'
+# df_ins = pd.read_csv(url_ins)
 
-url_pop = 'https://raw.githubusercontent.com/liu3388/RE_input/main/population_state_county.csv'
-df_pop = pd.read_csv(url_pop)
+# url_pop = 'https://raw.githubusercontent.com/liu3388/RE_input/main/population_state_county.csv'
+# df_pop = pd.read_csv(url_pop)
 
-url_USpop = 'https://raw.githubusercontent.com/liu3388/RE_input/main/population_US.csv'
-df_USpop = pd.read_csv(url_USpop)
+# url_USpop = 'https://raw.githubusercontent.com/liu3388/RE_input/main/population_US.csv'
+# df_USpop = pd.read_csv(url_USpop)
 
-url_income = 'https://raw.githubusercontent.com/liu3388/RE_input/main/med_household_income.csv'
-df_income = pd.read_csv(url_income)
+# url_income = 'https://raw.githubusercontent.com/liu3388/RE_input/main/med_household_income.csv'
+# df_income = pd.read_csv(url_income)
 
 #%% setup path to import csv files
-# os.chdir("C:\\Tai\\RE_project\\input\\RE_inputs\\")
-# path = os.getcwd()
-# path_csv = path + "\\"
+os.chdir("C:\\Tai\\RE_project\\input\\RE_inputs\\")
+path = os.getcwd()
+path_csv = path + "\\"
 
-# # import csv files via local drive
-# df_zip = "zip_codes.csv"
-# df_zip = pd.read_csv (path + "\\" + df_zip)
-# df_rent = "rent.csv"
-# df_rent = pd.read_csv (path + "\\" + df_rent)
-# df_tax = "tax.csv"
-# df_tax = pd.read_csv (path + "\\" + df_tax)
-# df_ins = "insurance.csv"
-# df_ins = pd.read_csv (path + "\\" + df_ins)
-# df_pop = "population_state_county.csv"
-# df_pop = pd.read_csv (path + "\\" + df_pop, encoding = "ISO-8859-1")
-# df_USpop = "population_US.csv"
-# df_USpop = pd.read_csv (path + "\\" + df_USpop)
-# df_income = "med_household_income.csv"
-# df_income = pd.read_csv (path + "\\" + df_income, encoding='ISO-8859-1')
+# import csv files via local drive
+df_zip = "zip_codes.csv"
+df_zip = pd.read_csv (path + "\\" + df_zip)
+df_rent = "rent.csv"
+df_rent = pd.read_csv (path + "\\" + df_rent)
+df_tax = "tax.csv"
+df_tax = pd.read_csv (path + "\\" + df_tax)
+df_ins = "insurance.csv"
+df_ins = pd.read_csv (path + "\\" + df_ins)
+df_pop = "population_state_county.csv"
+df_pop = pd.read_csv (path + "\\" + df_pop, encoding = "ISO-8859-1")
+df_USpop = "population_US.csv"
+df_USpop = pd.read_csv (path + "\\" + df_USpop)
+df_income = "med_household_income.csv"
+df_income = pd.read_csv (path + "\\" + df_income, encoding='ISO-8859-1')
 
-# #import in Realtor.com data csv file and merge with file with data for zip/city/county/state/sq feet data
-# df_realtor = "realtor.csv"
-# df_realtor = pd.read_csv (path_csv + "\\" + df_realtor)
+#import in Realtor.com data csv file and merge with file with data for zip/city/county/state/sq feet data
+df_realtor = "realtor.csv"
+df_realtor = pd.read_csv (path_csv + "\\" + df_realtor)
 
 #%% create zip code lists and create side bar filter
 #convert column 'postal_code' to str, add zeroes to zips
@@ -149,7 +149,7 @@ br4_rent = df_rent_chart['4 bedroom'].iloc[1]
 if "RENT" not in st.session_state:
     rent = int(br4_rent)
     # set the initial default value of the slider widget
-    st.session_state.RENT = rent
+#    st.session_state.RENT = rent
 
 RENT_AMT = st.sidebar.number_input(
     'Input rental value of property, $',
