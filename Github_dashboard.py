@@ -744,18 +744,18 @@ county_pop = county_pop[[Year_1, Year_2, Year_3, Year_4, Year_5]]
         
 state_pop = df_pop.loc[(df_pop['State'] == (state)) & (df_pop['County'] == (state))]
 state_pop = state_pop[[Year_1, Year_2, Year_3, Year_4, Year_5]]
-        
+
 US_pop = df_USpop
-US_pop['year'] = US_pop['DATE'].str[-5:]
+US_pop['year'] = US_pop['DATE'].str[-4:]
+US_pop = df_USpop[['year', 'US']]
 US_pop = US_pop.loc[(US_pop['year'] == Year_1) | (US_pop['year'] == Year_5)]
-del US_pop['DATE']
     
-US_pop.iloc[0] = pd.to_numeric(US_pop.iloc[0].str.replace(',', ''))
-US_pop.iloc[1] = pd.to_numeric(US_pop.iloc[1].str.replace(',', ''))
+# US_pop.iloc[0] = pd.to_numeric(US_pop.iloc[0].str.replace(',', ''))
+# US_pop.iloc[1] = pd.to_numeric(US_pop.iloc[1].str.replace(',', ''))
 
 pop_rate_county = county_pop[Year_5].iloc[0] / county_pop[Year_1].iloc[0] - 1
 pop_rate_state = state_pop[Year_5].iloc[0] / state_pop[Year_1].iloc[0] - 1
-pop_rate_US = US_pop.iloc[1][0] / US_pop.iloc[0][0] - 1
+pop_rate_US = US_pop.iloc[1][1] / US_pop.iloc[0][1] - 1
 
 state1 = str(state).strip("[]'") 
 county1 = str(county).strip("[]'")
