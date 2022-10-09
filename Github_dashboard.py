@@ -16,7 +16,7 @@ import plotly.express as px
 
 #%% update dates
 start_date = dt.date(year=2017,month=7,day=1)
-end_date = dt.date(year=2022,month=8,day=1)
+end_date = dt.date(year=2022,month=9,day=1)
 
 #%% page setup
 st.set_page_config(layout="wide")  # this needs to be the first Streamlit command
@@ -34,8 +34,19 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-st.title("ApexaVision.com")
-st.subheader("RENT or BUY that house? Set inputs on 'Control Panel' (click '>' on upper left corner). Scroll down for more insights.")
+#remove padding spaces
+padding = 0
+st.markdown(f""" <style>
+    .reportview-container .main .block-container{{
+        padding-top: {padding}rem;
+        padding-right: {padding}rem;
+        padding-left: {padding}rem;
+        padding-bottom: {padding}rem;
+    }} </style> """, unsafe_allow_html=True)
+
+#add title
+st.title("RENT or BUY that house?")
+st.subheader("Set inputs on 'Control Panel' (click '>' on upper left corner). Scroll down for more insights.")
 #remove white space in header:
 st.write('<style>div.block-container{padding-top:2rem;}</style>', unsafe_allow_html=True)
 
@@ -48,54 +59,55 @@ st.sidebar.subheader("User inputs on zip code, house price, rent, interest rates
 col1,col2,col3 = st.columns([3,3,3])
 
 #%% import other csv files via GitHub cloud
-url_realtor = 'https://raw.githubusercontent.com/liu3388/RE_input/main/realtor.csv'
-df_realtor = pd.read_csv(url_realtor)
+# url_realtor = 'https://raw.githubusercontent.com/liu3388/RE_input/main/realtor.csv'
+# df_realtor = pd.read_csv(url_realtor)
 
-url_zipCodes = 'https://raw.githubusercontent.com/liu3388/RE_input/main/zip_codes.csv'
-df_zip = pd.read_csv(url_zipCodes)
+# url_zipCodes = 'https://raw.githubusercontent.com/liu3388/RE_input/main/zip_codes.csv'
+# df_zip = pd.read_csv(url_zipCodes)
 
-url_rent = 'https://raw.githubusercontent.com/liu3388/RE_input/main/rent.csv'
-df_rent = pd.read_csv(url_rent)
+# url_rent = 'https://raw.githubusercontent.com/liu3388/RE_input/main/rent.csv'
+# df_rent = pd.read_csv(url_rent)
 
-url_tax = 'https://raw.githubusercontent.com/liu3388/RE_input/main/tax.csv'
-df_tax = pd.read_csv(url_tax)
+# url_tax = 'https://raw.githubusercontent.com/liu3388/RE_input/main/tax.csv'
+# df_tax = pd.read_csv(url_tax)
 
-url_ins = 'https://raw.githubusercontent.com/liu3388/RE_input/main/insurance.csv'
-df_ins = pd.read_csv(url_ins)
+# url_ins = 'https://raw.githubusercontent.com/liu3388/RE_input/main/insurance.csv'
+# df_ins = pd.read_csv(url_ins)
 
-url_pop = 'https://raw.githubusercontent.com/liu3388/RE_input/main/population_state_county.csv'
-df_pop = pd.read_csv(url_pop)
+# url_pop = 'https://raw.githubusercontent.com/liu3388/RE_input/main/population_state_county.csv'
+# df_pop = pd.read_csv(url_pop)
 
-url_USpop = 'https://raw.githubusercontent.com/liu3388/RE_input/main/population_US.csv'
-df_USpop = pd.read_csv(url_USpop)
+# url_USpop = 'https://raw.githubusercontent.com/liu3388/RE_input/main/population_US.csv'
+# df_USpop = pd.read_csv(url_USpop)
 
-url_income = 'https://raw.githubusercontent.com/liu3388/RE_input/main/med_household_income.csv'
-df_income = pd.read_csv(url_income)
+# url_income = 'https://raw.githubusercontent.com/liu3388/RE_input/main/med_household_income.csv'
+# df_income = pd.read_csv(url_income)
 
 #%% setup path to import csv files
-# os.chdir("C:\\Tai\\RE_project\\input\\RE_inputs\\")
-# path = os.getcwd()
-# path_csv = path + "\\"
+os.chdir("C:\\Tai\\RE_project\\Github\\csv\\RE_input\\")
 
-# # import csv files via local drive
-# df_zip = "zip_codes.csv"
-# df_zip = pd.read_csv (path + "\\" + df_zip)
-# df_rent = "rent.csv"
-# df_rent = pd.read_csv (path + "\\" + df_rent)
-# df_tax = "tax.csv"
-# df_tax = pd.read_csv (path + "\\" + df_tax)
-# df_ins = "insurance.csv"
-# df_ins = pd.read_csv (path + "\\" + df_ins)
-# df_pop = "population_state_county.csv"
-# df_pop = pd.read_csv (path + "\\" + df_pop, encoding = "ISO-8859-1")
-# df_USpop = "population_US.csv"
-# df_USpop = pd.read_csv (path + "\\" + df_USpop)
-# df_income = "med_household_income.csv"
-# df_income = pd.read_csv (path + "\\" + df_income, encoding='ISO-8859-1')
+path = os.getcwd()
+path_csv = path + "\\"
 
-# #import in Realtor.com data csv file and merge with file with data for zip/city/county/state/sq feet data
-# df_realtor = "realtor.csv"
-# df_realtor = pd.read_csv (path_csv + "\\" + df_realtor)
+# import csv files via local drive
+df_zip = "zip_codes.csv"
+df_zip = pd.read_csv (path + "\\" + df_zip)
+df_rent = "rent.csv"
+df_rent = pd.read_csv (path + "\\" + df_rent)
+df_tax = "tax.csv"
+df_tax = pd.read_csv (path + "\\" + df_tax)
+df_ins = "insurance.csv"
+df_ins = pd.read_csv (path + "\\" + df_ins)
+df_pop = "population_state_county.csv"
+df_pop = pd.read_csv (path + "\\" + df_pop, encoding = "ISO-8859-1")
+df_USpop = "population_US.csv"
+df_USpop = pd.read_csv (path + "\\" + df_USpop)
+df_income = "med_household_income.csv"
+df_income = pd.read_csv (path + "\\" + df_income, encoding='ISO-8859-1')
+
+#import in Realtor.com data csv file and merge with file with data for zip/city/county/state/sq feet data
+df_realtor = "realtor.csv"
+df_realtor = pd.read_csv (path_csv + "\\" + df_realtor)
 
 #%% create zip code lists and create side bar filter
 #convert column 'postal_code' to str, add zeroes to zips
@@ -114,10 +126,12 @@ df_realtor = df_realtor[:-1]
 df_chart1 = df_realtor
 
 #select columns for df_chart1
-df_chart1 = df_chart1[['month_date_yyyymm','postal_code', 'median_listing_price', 'state', 'county']]
+df_chart1 = df_chart1[['month_date_yyyymm','postal_code', 
+                       'median_listing_price', 'state', 'county']]
 
 df_chart1 = df_chart1.rename(columns={'month_date_yyyymm': 'date'})
-df_chart1['date'] = pd.to_datetime(df_chart1['date'], format="%Y%m").dt.date
+df_chart1['date'] = pd.to_datetime(df_chart1['date'], format="%Y%m", 
+                                   errors='coerce').dt.date
 
 #%% create side bar filters for zip and dates
 ZIP_SELECTED = st.sidebar.text_input('Type in zip code', 
@@ -187,8 +201,9 @@ PROPERTY_PRICE = st.sidebar.number_input(
 
 # user input side-bar for mortgage amount
 if "MORTGAGE" not in st.session_state:
+    mortgage = 20
     # set the initial default value of the slider widget
-    st.session_state.MORTGAGE = 20
+     # st.session_state.MORTGAGE = 20
     
 LOAN = st.sidebar.number_input(
     'Downpayment, %',
@@ -225,7 +240,7 @@ if "INT_RATE" not in st.session_state:
 
 INTEREST = st.sidebar.number_input(
     'Input mortgage interest rate, in %',
-    value=float(6.0),
+    value=float(6.75),
     step=.05,
     help="Rental cost for equivalent housing",
     key='INT_RATE', 
@@ -246,7 +261,7 @@ DATE_SELECTED = DATE_SELECTED.replace(day=1)
 
 
 # end_date = dt.date(year=2022,month=7,day=1)
-END_DATE_SELECTED = st.sidebar.date_input('To estimate price change: Select end date (latest data: 2022-08-01)', 
+END_DATE_SELECTED = st.sidebar.date_input('To estimate price change: Select end date (latest data: 2022-09-01)', 
                                        value = end_date,
                                        help="End date of comparison period. Usually the latest month with available data.",
                                        key='END_DATE_SELECTED')
@@ -388,13 +403,13 @@ with col1:
         fig_3.update_layout(
             font_family="Arial",
             font_color="black",
-            font_size=13,
+            font_size=12,
             title_font_family="Arial",
             title_font_color="black",
             title = (f'<b>Buy vs Rent: next 12-months CASHFLOW <br>Zip code: {ZIP_SELECTED}</b>'),
             title_font_size=15,
             legend_title_font_color="black",
-            legend_font_size=13,
+            legend_font_size=12,
             legend_title=None,
             yaxis_title=None,
             xaxis_title=None,
@@ -402,7 +417,7 @@ with col1:
             showlegend=True,
             title_x=0.08,
             title_y=0.93,
-            width=460,
+            width=430,
             height=400, 
             bargap=0.2,
             legend=dict(
@@ -541,14 +556,14 @@ with col1:
         fig_3.update_layout(
             font_family="Arial",
             font_color="black",
-            font_size=13,
+            font_size=12,
             title_font_family="Arial",
             title_font_color="black",
             title  = (f'<b>Buy vs. Rent: next 12-months REAL COSTS<br>Zip code: {ZIP_SELECTED}</b>'),
             # title='<b>Est. home ownership costs vs. renting: next 12-months</b>',
             title_font_size=15,
             legend_title_font_color="black",
-            legend_font_size=13,
+            legend_font_size=12,
             legend_title=None,
             yaxis_title=None,
             xaxis_title=None,
@@ -556,7 +571,7 @@ with col1:
             showlegend=True,
             title_x=0.08,
             title_y=0.925,
-            width=460,
+            width=430,
             height=400, 
             bargap=0.2,
             legend=dict(
@@ -599,7 +614,7 @@ with col2:
     fig.update_layout(
         font_family="Arial",
         font_color="black",
-        font_size=13,
+        font_size=12,
         title_font_family="Arial",
         title_font_color="black",
         title = (f'<b>Realtor.com median listing house price  <br>Zip code: {ZIP_SELECTED}</b>'),
@@ -612,7 +627,7 @@ with col2:
         showlegend=False,
         title_x=0.08,
         title_y=0.925,
-        width=460,
+        width=430,
         height=400, 
         bargap=0.2
         )
@@ -668,7 +683,7 @@ with col2:
     fig_2.update_layout(
         font_family="Arial",
         font_color="black",
-        font_size=13,
+        font_size=12,
         title_font_family="Arial",
         title_font_color="black",
         title = (f'<b>Rental trends: monthly rent costs <br>Zip code: {ZIP_SELECTED}</b>'),
@@ -682,7 +697,7 @@ with col2:
         showlegend=True,
         title_x=0.08,
         title_y=0.925,
-        width=460,
+        width=430,
         height=400, 
         bargap=0.175
         )
@@ -696,7 +711,7 @@ with col2:
         x=1
         ))
     
-    fig_2.update_traces(texttemplate='%{value:$,.0f}', textfont_size=13, 
+    fig_2.update_traces(texttemplate='%{value:$,.0f}', textfont_size=12, 
                         textposition='inside')
     fig_2.update_xaxes(type='category', linecolor='black')
     fig_2.update_yaxes(dtick=500)
@@ -716,11 +731,11 @@ df_chart1['county'] = df_chart1['county'].astype(pd.StringDtype())
 state = df_chart1['state'].iat[0]
 county = df_chart1['county'].iat[0]
 
-Year_1 = str(2016)
-Year_2 = str(2017)
-Year_3 = str(2018)
-Year_4 = str(2019)
-Year_5 = str(2020)
+Year_1 = str(2017)
+Year_2 = str(2018)
+Year_3 = str(2019)
+Year_4 = str(2020)
+Year_5 = str(2021)
         
 df_pop = df_pop.rename(columns={'STNAME': 'State', 'CTYNAME': 'County'})
 county_pop = df_pop.loc[(df_pop['State'] == (state))]
@@ -777,10 +792,10 @@ with col1:
         fig_4.update_layout(
             font_family="Arial",
             font_color="black",
-            font_size=13,
+            font_size=12,
             title_font_family="Arial",
             title_font_color="black",
-            title='<b>County/state/U.S. population growth rates, 2016-2020</b>',
+            title='<b>County / state / US population growth rate, <br> 2017-2021</b>',
             title_font_size=15,
             legend_title_font_color="black",
             legend_title=None,
@@ -792,7 +807,7 @@ with col1:
             showlegend=False,
             title_x=0.03,
             title_y=0.925,
-            width=460,
+            width=430,
             height=400, 
             bargap=0.175
             )
@@ -840,6 +855,8 @@ df_inc_chart[county1] = df_inc_chart[county1].astype(float)
 df_inc_chart['Year'] = df_inc_chart['Year'].astype(str)
 df_inc_chart['Year'].astype(int)
 df_inc_chart = df_inc_chart.sort_values(by='Year', ascending=True)
+#drop 2018 row
+df_inc_chart = df_inc_chart.iloc[1: , :]
 
 #%% first income per capita chart (absolute $ amt)
 with col2:
@@ -860,7 +877,7 @@ with col2:
         fig_5.update_layout(
             font_family="Arial",
             font_color="black",
-            font_size=13,
+            font_size=12,
             title_font_family="Arial",
             title_font_color="black",
             title='<b>Median household income</b>',
@@ -874,7 +891,7 @@ with col2:
             showlegend=True,
             title_x=0.08,
             title_y=0.925,
-            width=460,
+            width=430,
             height=400, 
             bargap=0.175
             )
@@ -888,7 +905,7 @@ with col2:
             x=0.9
             ))
         
-        fig_5.update_traces(texttemplate='%{value:$,.0f}', textfont_size=13, 
+        fig_5.update_traces(texttemplate='%{value:$,.0f}', textfont_size=12, 
                             textposition='inside')
         fig_5.update_xaxes(type='category', linecolor='black')
         # fig_5.update_yaxes(dtick=500)
@@ -906,9 +923,10 @@ with col2:
 #reformat df for first chart on income
 df_inc_chart2 = df_inc_chart.copy()
 df_inc_chart2.set_index('Year', inplace=True)
+df_inc_chart2.loc['2022 %'] = df_inc_chart2.loc['2022'] / df_inc_chart2.loc['2021'] -1
 df_inc_chart2.loc['2021 %'] = df_inc_chart2.loc['2021'] / df_inc_chart2.loc['2020'] -1
 df_inc_chart2.loc['2020 %'] = df_inc_chart2.loc['2020'] / df_inc_chart2.loc['2019'] -1
-df_inc_chart2.loc['2019 %'] = df_inc_chart2.loc['2019'] / df_inc_chart2.loc['2018'] -1
+
 df_inc_chart2 = df_inc_chart2.tail(3)
 df_inc_chart2 = df_inc_chart2.reset_index()
 df_inc_chart2['Year'] = df_inc_chart2['Year'].replace({'%':''}, regex=True)
@@ -936,7 +954,7 @@ with col1:
         fig_6.update_layout(
             font_family="Arial",
             font_color="black",
-            font_size=13,
+            font_size=12,
             title_font_family="Arial",
             title_font_color="black",
             title='<b>Median household income, year-on-year change</b>',
@@ -950,7 +968,7 @@ with col1:
             showlegend=True,
             title_x=0.08,
             title_y=0.925,
-            width=470,
+            width=430,
             height=400, 
             bargap=0.175
             )
@@ -966,7 +984,7 @@ with col1:
         
         fig_6.layout.yaxis.tickformat = ',.0%'
         
-        fig_6.update_traces(texttemplate='%{value:0,.1%}', textfont_size=13, 
+        fig_6.update_traces(texttemplate='%{value:0,.1%}', textfont_size=12, 
                             textposition='inside')
         fig_6.update_xaxes(type='category', linecolor='black')
         # fig_5.update_yaxes(dtick=500)
