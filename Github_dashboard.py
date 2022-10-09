@@ -746,7 +746,7 @@ state_pop = df_pop.loc[(df_pop['State'] == (state)) & (df_pop['County'] == (stat
 state_pop = state_pop[[Year_1, Year_2, Year_3, Year_4, Year_5]]
         
 US_pop = df_USpop
-US_pop['year'] = US_pop['DATE'].str[-4:]
+US_pop['year'] = US_pop['DATE'].str[-5:]
 US_pop = US_pop.loc[(US_pop['year'] == Year_1) | (US_pop['year'] == Year_5)]
 del US_pop['DATE']
     
