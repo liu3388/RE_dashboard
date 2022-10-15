@@ -218,8 +218,9 @@ LOAN = st.sidebar.number_input(
 
 # user input side-bar for mortgage terms
 if "MORTGAGE_TERMS" not in st.session_state:
+    MORTGAGE_TERMS = 30
     # set the initial default value of the slider widget
-    st.session_state.MORTGAGE_TERMS = 30
+    # st.session_state.MORTGAGE_TERMS = 30
 
 LOAN_LIFE = st.sidebar.number_input(
     'Mortgage terms, in years (usually 15 or 30)',
@@ -236,7 +237,7 @@ LOAN_LIFE = st.sidebar.number_input(
 # user input side-bar for interest rates
 if "INT_RATE" not in st.session_state:
     # set the initial default value of the slider widget
-    st.session_state.INT_RATE = 6.0
+    st.session_state.INT_RATE = 6.75
 
 INTEREST = st.sidebar.number_input(
     'Input mortgage interest rate, in %',
@@ -360,16 +361,16 @@ with col1:
         df['4 bedroom'] = rent_amt
         
         #calculate rental and costs sums
-        total_int = df['Monthly Interests'].sum()
-        total_ppl = df['Monthly Principal'].sum()
-        total_ins = df['Insurance'].sum()
-        total_tax = df['Tax'].sum()
+        total_int = df['Monthly Interests'].sum() / 12
+        total_ppl = df['Monthly Principal'].sum() / 12
+        total_ins = df['Insurance'].sum() / 12
+        total_tax = df['Tax'].sum() / 12
         total_ownership_cost1 = total_int + total_ppl + total_ins + total_tax
         my_formatter = "${:,.0f}" #"{0:,.0f}"
         total_ownership_cost = my_formatter.format(total_ownership_cost1)
-        total_2br = df['2 bedroom'].sum()
-        total_3br = df['3 bedroom'].sum()
-        total_4br = df['4 bedroom'].sum()
+        total_2br = df['2 bedroom'].sum() / 12
+        total_3br = df['3 bedroom'].sum() / 12
+        total_4br = df['4 bedroom'].sum() / 12
         data =[]
            
         df_chart3 = pd.DataFrame(columns=['Ownership <br> cashflow','2 bedroom','3 bedroom',
@@ -516,15 +517,15 @@ with col1:
         df['4 bedroom'] = rent_amt
         
         #calculate rental and costs sums
-        total_int = df['Monthly Interests'].sum()
-        total_ins = df['Insurance'].sum()
-        total_tax = df['Tax'].sum()
+        total_int = df['Monthly Interests'].sum() / 12
+        total_ins = df['Insurance'].sum() / 12
+        total_tax = df['Tax'].sum() / 12
         total_ownership_cost1 = total_int + total_ins + total_tax
         my_formatter = "${:,.0f}" #"{0:,.0f}"
         total_ownership_cost = my_formatter.format(total_ownership_cost1)
-        total_2br = df['2 bedroom'].sum()
-        total_3br = df['3 bedroom'].sum()
-        total_4br = df['4 bedroom'].sum()
+        total_2br = df['2 bedroom'].sum() / 12
+        total_3br = df['3 bedroom'].sum() / 12
+        total_4br = df['4 bedroom'].sum() / 12
         data =[]
            
         df_chart3 = pd.DataFrame(columns=['Ownership <br> costs','2 bedroom','3 bedroom',
@@ -559,7 +560,7 @@ with col1:
             font_size=12,
             title_font_family="Arial",
             title_font_color="black",
-            title  = (f'<b>Buy vs. Rent: next 12-months REAL COSTS<br>Zip code: {ZIP_SELECTED}</b>'),
+            title  = (f'<b>Buy vs. Rent: Avg Monthly COSTS<br>Zip code: {ZIP_SELECTED}</b>'),
             # title='<b>Est. home ownership costs vs. renting: next 12-months</b>',
             title_font_size=15,
             legend_title_font_color="black",
