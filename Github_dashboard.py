@@ -45,8 +45,9 @@ st.markdown(f""" <style>
     }} </style> """, unsafe_allow_html=True)
 
 #add title
-st.title("RENT or BUY that house?")
-st.subheader("Set inputs on 'Control Panel' (click '>' on upper left corner). Scroll down for more insights.")
+st.header("RENT or BUY?")
+
+st.markdown("Set zip code, interest rates, house price, market rent, etc. on 'Control Panel' (click '>' on upper left corner). Scroll down for more insights.")
 #remove white space in header:
 st.write('<style>div.block-container{padding-top:2rem;}</style>', unsafe_allow_html=True)
 
@@ -54,7 +55,7 @@ st.write('<style>div.block-container{padding-top:2rem;}</style>', unsafe_allow_h
 
 #st.markdown("*Check out the [article](https://www.crosstab.io/articles/staged-rollout-analysis) for a detailed walk-through!*")
 st.sidebar.title("Control Panel")
-st.sidebar.subheader("User inputs on zip code, house price, rent, interest rates, down payment, etc.")
+st.sidebar.subheader("User inputs on zip code, house price, rent, interest rates, etc.")
 
 col1,col2,col3 = st.columns([3,3,3])
 
@@ -407,7 +408,7 @@ with col1:
             font_size=12,
             title_font_family="Arial",
             title_font_color="black",
-            title = (f'<b>Buy vs Rent: next 12-months CASHFLOW <br>Zip code: {ZIP_SELECTED}</b>'),
+            title = (f'<b>Buy vs Rent: monthly cashflow <br>Zip code: {ZIP_SELECTED}</b>'),
             title_font_size=15,
             legend_title_font_color="black",
             legend_font_size=12,
@@ -560,7 +561,7 @@ with col1:
             font_size=12,
             title_font_family="Arial",
             title_font_color="black",
-            title  = (f'<b>Buy vs. Rent: Avg Monthly COSTS<br>Zip code: {ZIP_SELECTED}</b>'),
+            title  = (f'<b>Buy vs. Rent: monthly costs<br>Zip code: {ZIP_SELECTED}</b>'),
             # title='<b>Est. home ownership costs vs. renting: next 12-months</b>',
             title_font_size=15,
             legend_title_font_color="black",
