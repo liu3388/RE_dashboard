@@ -15,7 +15,7 @@ import numpy_financial as npf #DOWNLOAD: pip3 install numpy-financial
 import plotly.express as px
 
 #%% update dates
-start_date = dt.date(year=2017,month=7,day=1)
+start_date = dt.date(year=2017,month=8,day=1)
 end_date = dt.date(year=2022,month=9,day=1)
 
 #%% page setup
@@ -237,8 +237,9 @@ LOAN_LIFE = st.sidebar.number_input(
 
 # user input side-bar for interest rates
 if "INT_RATE" not in st.session_state:
+    INT_RATE = 6.75
     # set the initial default value of the slider widget
-    st.session_state.INT_RATE = 6.75
+    # st.session_state.INT_RATE = 6.75
 
 INTEREST = st.sidebar.number_input(
     'Input mortgage interest rate, in %',
@@ -252,8 +253,7 @@ INTEREST = st.sidebar.number_input(
 
 #%%
 # create start date filter on side bar
-# start_date = dt.date(year=2017,month=7,day=1)
-DATE_SELECTED = st.sidebar.date_input('To estimate price change: Select purchase date (data starts at: 2017-01-01)', 
+DATE_SELECTED = st.sidebar.date_input('To estimate price change: Select purchase date (data starts at: 2017-08-01)', 
                                        min_value = start_date,
                                        value = start_date,
                                        help="Begining of comparison period. Usually the purchase date of property.",
