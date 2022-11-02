@@ -15,7 +15,7 @@ import numpy_financial as npf #DOWNLOAD: pip3 install numpy-financial
 import plotly.express as px
 
 #%% update dates
-start_date = dt.date(year=2017,month=8,day=1)
+start_date = dt.date(year=2018,month=9,day=1)
 end_date = dt.date(year=2022,month=9,day=1)
 
 #%% page setup
@@ -253,7 +253,7 @@ INTEREST = st.sidebar.number_input(
 
 #%%
 # create start date filter on side bar
-DATE_SELECTED = st.sidebar.date_input('To estimate price change: Select purchase date (data starts at: 2017-08-01)', 
+DATE_SELECTED = st.sidebar.date_input('To estimate price change: Select purchase date (data starts at: 2018-09-01)', 
                                        min_value = start_date,
                                        value = start_date,
                                        help="Begining of comparison period. Usually the purchase date of property.",
