@@ -60,8 +60,8 @@ st.sidebar.subheader("User inputs on zip code, house price, rent, interest rates
 col1,col2,col3 = st.columns([3,3,3])
 
 #%% import other csv files via GitHub cloud
-# url_realtor = 'https://raw.githubusercontent.com/liu3388/RE_input/main/realtor.csv'
-url_realtor = 'https://raw.githubusercontent.com/liu3388/RE_input/main/df.pkl'
+url_realtor = 'https://raw.githubusercontent.com/liu3388/RE_input/main/realtor.csv'
+# url_realtor = 'https://raw.githubusercontent.com/liu3388/RE_input/main/df.pkl'
 df_realtor = pd.read_csv(url_realtor)
 
 url_zipCodes = 'https://raw.githubusercontent.com/liu3388/RE_input/main/zip_codes.csv'
