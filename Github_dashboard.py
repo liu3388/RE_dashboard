@@ -16,7 +16,7 @@ import plotly.express as px
 
 #%% update dates
 start_date = dt.date(year=2018,month=9,day=1)
-end_date = dt.date(year=2022,month=9,day=1)
+end_date = dt.date(year=2022,month=10,day=1)
 
 #%% page setup
 st.set_page_config(layout="wide")  # this needs to be the first Streamlit command
@@ -60,8 +60,10 @@ st.sidebar.subheader("User inputs on zip code, house price, rent, interest rates
 col1,col2,col3 = st.columns([3,3,3])
 
 #%% import other csv files via GitHub cloud
-# url_realtor = 'https://raw.githubusercontent.com/liu3388/RE_input/main/realtor.csv'
-# df_realtor = pd.read_csv(url_realtor)
+# # url_realtor = 'https://raw.githubusercontent.com/liu3388/RE_input/main/realtor.csv'
+# # df_realtor = pd.read_csv(url_realtor)
+####################################################
+
 url_realtor = 'https://raw.githubusercontent.com/liu3388/RE_input/main/df.pkl'
 df_realtor = pd.read_pickle(url_realtor)
 
@@ -88,7 +90,6 @@ df_income = pd.read_csv(url_income)
 
 #%% setup path to import csv files
 # os.chdir("C:\\Tai\\RE_project\\Github\\csv\\RE_input\\")
-
 # path = os.getcwd()
 # path_csv = path + "\\"
 
@@ -108,9 +109,13 @@ df_income = pd.read_csv(url_income)
 # df_income = "med_household_income.csv"
 # df_income = pd.read_csv (path + "\\" + df_income, encoding='ISO-8859-1')
 
-# #import in Realtor.com data csv file and merge with file with data for zip/city/county/state/sq feet data
-# df_realtor = "realtor.csv"
-# df_realtor = pd.read_csv (path_csv + "\\" + df_realtor)
+# #import pickled file
+# df_realtor = pd.read_pickle('C:\Tai\RE_project\Github\csv\RE_input\df.pkl')
+
+####################################################
+# # #import in Realtor.com data csv file and merge with file with data for zip/city/county/state/sq feet data
+# # df_realtor = "realtor.csv"
+# # df_realtor = pd.read_csv (path_csv + "\\" + df_realtor)
 
 #%% create zip code lists and create side bar filter
 #convert column 'postal_code' to str, add zeroes to zips
@@ -255,7 +260,7 @@ INTEREST = st.sidebar.number_input(
 
 #%%
 # create start date filter on side bar
-DATE_SELECTED = st.sidebar.date_input('To estimate price change: Select purchase date (data starts at: 2018-09-01)', 
+DATE_SELECTED = st.sidebar.date_input('To estimate price change: Select purchase date (data starts at: Sep 2018)', 
                                        min_value = start_date,
                                        value = start_date,
                                        help="Begining of comparison period. Usually the purchase date of property.",
@@ -265,7 +270,7 @@ DATE_SELECTED = DATE_SELECTED.replace(day=1)
 
 
 # end_date = dt.date(year=2022,month=7,day=1)
-END_DATE_SELECTED = st.sidebar.date_input('To estimate price change: Select end date (latest data: 2022-09-01)', 
+END_DATE_SELECTED = st.sidebar.date_input('To estimate price change: Select end date (latest data: Oct 2022)', 
                                        value = end_date,
                                        help="End date of comparison period. Usually the latest month with available data.",
                                        key='END_DATE_SELECTED')
