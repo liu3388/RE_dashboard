@@ -51,8 +51,6 @@ st.markdown("Set zip code, interest rates, house price, market rent, etc. on 'Co
 #remove white space in header:
 st.write('<style>div.block-container{padding-top:2rem;}</style>', unsafe_allow_html=True)
 
-
-
 #st.markdown("*Check out the [article](https://www.crosstab.io/articles/staged-rollout-analysis) for a detailed walk-through!*")
 st.sidebar.title("Control Panel")
 st.sidebar.subheader("User inputs on zip code, house price, rent, interest rates, etc.")
@@ -88,6 +86,9 @@ df_USpop = pd.read_csv(url_USpop)
 url_income = 'https://raw.githubusercontent.com/liu3388/RE_input/main/med_household_income.csv'
 df_income = pd.read_csv(url_income)
 
+url_listings = 'https://raw.githubusercontent.com/liu3388/RE_input/main/listings_price.pkl'
+df_listings = pd.read_pickle(url_listings)
+
 #%% setup path to import csv files
 # os.chdir("C:\\Tai\\RE_project\\Github\\csv\\RE_input\\")
 # path = os.getcwd()
@@ -109,10 +110,11 @@ df_income = pd.read_csv(url_income)
 # df_income = "med_household_income.csv"
 # df_income = pd.read_csv (path + "\\" + df_income, encoding='ISO-8859-1')
 
-# #import pickled file
+# #import pickled files
 # df_realtor = pd.read_pickle('C:\Tai\RE_project\Github\csv\RE_input\df.pkl')
+# df_listings = pd.read_pickle('C:\Tai\RE_project\Github\csv\RE_input\listings_price.pkl')
 
-####################################################
+# ###################################################
 # # #import in Realtor.com data csv file and merge with file with data for zip/city/county/state/sq feet data
 # # df_realtor = "realtor.csv"
 # # df_realtor = pd.read_csv (path_csv + "\\" + df_realtor)
@@ -158,7 +160,7 @@ df_rent.rename(columns={'fmr_1br': '1 bedroom', 'fmr_2br': '2 bedroom',
 df_rent_chart = df_rent.loc[df_rent['zip_code'] == zip_code_int]
 
 df_rent_chart = df_rent_chart[['2 bedroom', '3 bedroom', '4 bedroom', 'year']]
-df_rent_chart = df_rent_chart[df_rent_chart['year'].isin(['2017', '2022'])]
+df_rent_chart = df_rent_chart[df_rent_chart['year'].isin(['2018', '2022'])]
 
 #add rent columns to df
 br2_rent = df_rent_chart['2 bedroom'].iloc[1]
@@ -396,7 +398,7 @@ with col1:
         df_chart3 = df_chart3.T
         
         #plot chart_3
-        colors = {'Interest':'darkblue',
+        colors = {'Interest':'blue',
                   'Principal': 'green',
                   'Tax':'yellow',
                   'Insurance': 'magenta',
@@ -550,7 +552,7 @@ with col1:
         df_chart3 = df_chart3.T
         
         #plot chart_3
-        colors = {'Interest':'darkblue',
+        colors = {'Interest':'blue',
                   'Tax':'yellow',
                   'Insurance': 'magenta',
                   'Rent': 'red'}
@@ -619,7 +621,7 @@ fig = px.bar(df_chart1, x="date2", y="median_listing_price",
               text="median_listing_price", barmode = 'group'
               )
 
-with col2:
+with col1:
     fig.update_layout(
         font_family="Arial",
         font_color="black",
@@ -661,7 +663,122 @@ with col2:
     #place the chart in streamlit column
     st.plotly_chart(fig, config=config)
 
-#%% fig_2: rental trends
+#%% process df for column 2 – top and middle chart
+
+# process df_listing: add zero's to postal codes to df_listings
+#convert column 'postal_code' to str, add zeroes to zips
+df_listings['postal_code'] = df_listings['postal_code'].astype(str)
+df_listings['postal_code'] = df_listings['postal_code'].str.pad(5, 'left', '0')
+
+#drop columns, rename column
+df_listings = df_listings.drop('Unnamed: 0', axis=1)
+df_listings = df_listings.rename(columns={"postal_code": "zip_code", "month_date_yyyymm": "date"})
+
+#filter by zip code selected
+df_trend_chart = df_listings.loc[df_listings['zip_code'] == (ZIP_SELECTED)]
+
+#select columns for listing trend chart
+df_trend_chart = df_trend_chart[['date','median_listing_price', 'active_listing_count']]
+
+#sort
+df_trend_chart = df_trend_chart.sort_values('date', ascending=True)
+
+#replace date column with hyphens
+
+#convert date to str
+df_trend_chart['date'] = df_trend_chart['date'].astype(str)
+
+
+#%% column 2 top chart starts here
+
+with col2:
+          
+    fig_inventory = px.line(df_trend_chart, 
+                           x="date", 
+                           y='median_listing_price', 
+                     title = 'Listings median price trend'
+                     )
+    
+    fig_inventory.update_layout(
+    font_family="Arial",
+    font_color="black",
+    font_size=12,
+    title_font_family="Arial",
+    title_font_color="black",
+    title = (f'<b>Realtor.com median listing price trend  <br>Zip code: {ZIP_SELECTED}</b>'),
+    title_font_size=15,
+    legend_title_font_color="black",
+    yaxis_title=None,
+    xaxis_title=None,
+#        yaxis_range=[0, 400000],
+    yaxis_tickprefix = '$',
+    showlegend=False,
+    title_x=0.08,
+    title_y=0.925,
+    width=430,
+    height=400, 
+    bargap=0.2
+    )
+    
+    fig_inventory.update_xaxes(type='category', linecolor='black')
+    
+    fig_inventory.update_traces(line_color='blue', line_width=4)
+    
+    #turn off mode bar on top:
+    config = {'displayModeBar': False}
+    
+    #place the chart in streamlit column
+    st.plotly_chart(fig_inventory, config = config)
+    
+    
+#%% column 2 middle chart starts here
+
+with col2:
+    
+    colors = {'active_listing_count':'blue',
+              'date': 'green'
+              }
+          
+    fig_listings = px.bar(df_trend_chart, 
+                           x="date", 
+                           y='active_listing_count', 
+                     title = 'Listings median price trend',
+                     color_discrete_map=colors
+                     )
+    
+    fig_listings.update_layout(
+    font_family="Arial",
+    font_color="black",
+    font_size=12,
+    title_font_family="Arial",
+    title_font_color="black",
+    title = (f'<b>Realtor.com active listings trend  <br>Zip code: {ZIP_SELECTED}</b>'),
+    title_font_size=15,
+    legend_title_font_color="black",
+    yaxis_title=None,
+    xaxis_title=None,
+    # yaxis_range=[0, 400000],
+    # yaxis_tickprefix = '$',
+    showlegend=False,
+    title_x=0.08,
+    title_y=0.925,
+    width=430,
+    height=400, 
+    bargap=0.2
+    )
+    
+    fig_listings.update_xaxes(type='category', linecolor='black')
+    
+    fig_listings.update_traces(marker_color='#BF3EFF')
+    
+    #turn off mode bar on top:
+    config = {'displayModeBar': False}
+    
+    #place the chart in streamlit column
+    st.plotly_chart(fig_listings, config = config)
+
+
+#%% chart: rental costs trends
 
 #convert 'zip_code' from string to integer
 #zip_code_int = ZIP_SELECTED
@@ -670,7 +787,7 @@ df_rent.rename(columns={'fmr_1br': '1 bedroom', 'fmr_2br': '2 bedroom',
                           'fmr_4br': '4 bedroom'}, inplace=True)
 df_rent_chart = df_rent.loc[df_rent['zip_code'] == int(ZIP_SELECTED)]
 df_rent_chart = df_rent_chart[['2 bedroom', '3 bedroom', '4 bedroom', 'year']]
-df_rent_chart = df_rent_chart[df_rent_chart['year'].isin(['2017', '2022'])]
+df_rent_chart = df_rent_chart[df_rent_chart['year'].isin(['2018', '2022'])]
 
 br4_rent = df_rent_chart.iloc[1]['4 bedroom']
 
@@ -771,7 +888,7 @@ county1 = str(county).strip("[]'")
 
 
 #%% first population chart starts here
-with col1: 
+with col3: 
     def chart_4():
         df_chart4 = pd.DataFrame(columns=['United States', state1, county1], index=['Population growth rate'])
     
@@ -868,7 +985,7 @@ df_inc_chart = df_inc_chart.sort_values(by='Year', ascending=True)
 df_inc_chart = df_inc_chart.iloc[1: , :]
 
 #%% first income per capita chart (absolute $ amt)
-with col2:
+with col3:
     def chart_income():
         # Defining Custom Colors
         colors = {
@@ -945,7 +1062,7 @@ df_inc_chart2 = df_inc_chart2.sort_values(by='Year', ascending=True)
 
 #%% income chart 2: 
 
-with col1:
+with col3:
     def chart_income():
         # Defining Custom Colors
         colors = {
@@ -1010,6 +1127,6 @@ with col1:
 
 
 #%% 
-#streamlit run C:\Tai\RE_project\Github\script\Github_dashboard.py
+#streamlit run C:\Tai\RE_project\Github\script_02\Github_dashboard_02.py
 
 
