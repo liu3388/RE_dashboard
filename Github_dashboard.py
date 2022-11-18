@@ -21,6 +21,7 @@ end_date = dt.date(year=2022,month=10,day=1)
 #%% page setup
 st.set_page_config(layout="wide")  # this needs to be the first Streamlit command
 
+#%%
 #remove more white space
 remove_padding_css = """
     .block-container {
@@ -34,27 +35,19 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-#remove padding spaces
-padding = 0
-st.markdown(f""" <style>
-    .reportview-container .main .block-container{{
-        padding-top: {padding}rem;
-        padding-right: {padding}rem;
-        padding-left: {padding}rem;
-        padding-bottom: {padding}rem;
-    }} </style> """, unsafe_allow_html=True)
 
+#%%
 #add title
 st.header("RENT or BUY?")
 
-st.markdown("Set zip code, interest rates, house price, market rent, etc. on 'Control Panel' (click '>' on upper left corner). Scroll down for more insights.")
+st.markdown("Users can set zip code, interest rate, property price, market rent, etc. on 'Control Panel'. Scroll down for more charts. Mobile users: click '>' button on upper left corner.")
 #remove white space in header:
 st.write('<style>div.block-container{padding-top:2rem;}</style>', unsafe_allow_html=True)
 
-#st.markdown("*Check out the [article](https://www.crosstab.io/articles/staged-rollout-analysis) for a detailed walk-through!*")
 st.sidebar.title("Control Panel")
-st.sidebar.subheader("User inputs on zip code, house price, rent, interest rates, etc.")
+# st.sidebar.subheader("User inputs on zip code, house price, rent, interest rates, etc.")
 
+#set up three-columns format
 col1,col2,col3 = st.columns([3,3,3])
 
 #%% import other csv files via GitHub cloud
@@ -119,6 +112,7 @@ df_listings = pd.read_pickle(url_listings)
 # # df_realtor = "realtor.csv"
 # # df_realtor = pd.read_csv (path_csv + "\\" + df_realtor)
 
+
 #%% create zip code lists and create side bar filter
 #convert column 'postal_code' to str, add zeroes to zips
 df_realtor['postal_code'] = df_realtor['postal_code'].astype(str)
@@ -143,11 +137,16 @@ df_chart1 = df_chart1.rename(columns={'month_date_yyyymm': 'date'})
 df_chart1['date'] = pd.to_datetime(df_chart1['date'], format="%Y%m", 
                                    errors='coerce').dt.date
 
-#%% create side bar filters for zip and dates
-ZIP_SELECTED = st.sidebar.text_input('Type in zip code', 
+
+#%% create side bar section for forms
+#create side bar filters for zip codes input
+with st.sidebar.form(key = 'ZIP_SELECTED'):
+    submit_button = st.form_submit_button(label='Submit zip code')
+    ZIP_SELECTED = st.text_input('Type in zip code', 
                                         value = str(30096),
                                         help="Zip code of property.",
                                         key='ZIP_SELECTED')
+
 
 #%%
 #pull in chadrt for historical rental trends:
@@ -167,24 +166,6 @@ br2_rent = df_rent_chart['2 bedroom'].iloc[1]
 br3_rent = df_rent_chart['3 bedroom'].iloc[1]
 br4_rent = df_rent_chart['4 bedroom'].iloc[1]    
 
-#%%
-# user input side-bar for rent
-
-if "RENT" not in st.session_state:
-    rent = int(br4_rent)
-    # set the initial default value of the slider widget
-#    st.session_state.RENT = rent
-
-RENT_AMT = st.sidebar.number_input(
-    'Input rental value of property, $',
-    value = br4_rent,
-    step=20,
-    help="Property's rental value.",
-    key='RENT', 
-    )
-
-#st.write(st.session_state.INT_RATE) #this is just a check. Can # line when done. 
-
 
 #%% find current price of property
 
@@ -195,91 +176,102 @@ df_chart1c = (df_chart1a.loc[df_chart1a['date'] == (end_date)])
 #set up variable for current house price
 current_price = df_chart1c.iloc[0]['median_listing_price']
 
-# Set up session state and user input side bars for mortgage amt, mortgage terms, and interest rates
-# user input side-bar for property price
-if "PRICE" not in st.session_state:
-    price = int(current_price)
-    # set the initial default value of the slider widget
-#    st.session_state.PRICE = price
 
-PROPERTY_PRICE = st.sidebar.number_input(
-    'Input price of property, $',
-    value = current_price,
-    help="Price of property.",
-    key='PRICE', 
-    )
+#%% set up rest of the control panel widgets
+# Set up session state and user input side bars for rent, mortgage amt, mortgage terms, and interest rates
 
-# user input side-bar for mortgage amount
-if "MORTGAGE" not in st.session_state:
-    mortgage = 20
-    # set the initial default value of the slider widget
-     # st.session_state.MORTGAGE = 20
+with st.sidebar.form(key = 'RENT'):
+    submit_button = st.form_submit_button(label='Submit input updates')
     
-LOAN = st.sidebar.number_input(
-    'Downpayment, %',
-    min_value = 0,
-    max_value = 100,
-    value = 20,
-    help="Downpayment as percent of property price.",
-    key='MORTGAGE', 
-    )
-
-#st.write(st.session_state.MORTGAGE) #this is just a check. Can # line when done. 
-
-# user input side-bar for mortgage terms
-if "MORTGAGE_TERMS" not in st.session_state:
-    MORTGAGE_TERMS = 30
-    # set the initial default value of the slider widget
-    # st.session_state.MORTGAGE_TERMS = 30
-
-LOAN_LIFE = st.sidebar.number_input(
-    'Mortgage terms, in years (usually 15 or 30)',
-    min_value=0,
-    value=30,
-    max_value=50,
-    step=1,
-    help="The life of the mortgage terms, usually 15, 20 or 30 years.",
-    key='MORTGAGE_TERMS', 
-    )
-
-#st.write(st.session_state.MORTGAGE_TERMS) #this is just a check. Can # line when done. 
-
-# user input side-bar for interest rates
-if "INT_RATE" not in st.session_state:
-    INT_RATE = 6.75
-    # set the initial default value of the slider widget
-    # st.session_state.INT_RATE = 6.75
-
-INTEREST = st.sidebar.number_input(
-    'Input mortgage interest rate, in %',
-    value=float(6.75),
-    step=.05,
-    help="Rental cost for equivalent housing",
-    key='INT_RATE', 
-    )
-
-#st.write(st.session_state.INT_RATE) #this is just a check. Can # line when done. 
-
-#%%
-# create start date filter on side bar
-DATE_SELECTED = st.sidebar.date_input('To estimate price change: Select purchase date (data starts at: Sep 2018)', 
+    # user input side-bar for rent
+    if "RENT" not in st.session_state:
+        rent = int(br4_rent)
+        # set the initial default value of the slider widget
+    #    st.session_state.RENT = rent
+    
+    RENT_AMT = st.number_input(
+        'Input rental value of property, $',
+        value = br4_rent,
+        step=20,
+        help="Property's rental value.",
+        key='RENT', 
+        )
+    
+    # user input side-bar for property price
+    if "PRICE" not in st.session_state:
+        price = int(current_price)
+        # set the initial default value of the slider widget
+    #    st.session_state.PRICE = price
+    
+    PROPERTY_PRICE = st.number_input(
+        'Input price of property, $',
+        value = current_price,
+        help="Price of property.",
+        key='PRICE', 
+        )
+    
+    # user input side-bar for mortgage amount
+    if "MORTGAGE" not in st.session_state:
+        mortgage = 20
+        # set the initial default value of the slider widget
+         # st.session_state.MORTGAGE = 20
+        
+    LOAN = st.number_input(
+        'Downpayment, %',
+        min_value = 0,
+        max_value = 100,
+        value = 20,
+        help="Downpayment as percent of property price.",
+        key='MORTGAGE', 
+        )
+        
+    # user input side-bar for mortgage terms
+    if "MORTGAGE_TERMS" not in st.session_state:
+        MORTGAGE_TERMS = 30
+        # set the initial default value of the slider widget
+        # st.session_state.MORTGAGE_TERMS = 30
+    
+    LOAN_LIFE = st.number_input(
+        'Mortgage terms, in years (usually 15 or 30)',
+        min_value=0,
+        value=30,
+        max_value=50,
+        step=1,
+        help="The life of the mortgage terms, usually 15, 20 or 30 years.",
+        key='MORTGAGE_TERMS', 
+        )
+    
+    # user input side-bar for interest rates
+    if "INT_RATE" not in st.session_state:
+        INT_RATE = 6.75
+        # set the initial default value of the slider widget
+        # st.session_state.INT_RATE = 6.75
+    
+    INTEREST = st.number_input(
+        'Input mortgage interest rate, in %',
+        value=float(6.75),
+        step=.05,
+        help="Rental cost for equivalent housing",
+        key='INT_RATE', 
+        )
+    
+    # create start date filter on side bar
+    DATE_SELECTED = st.date_input('To estimate price change: Select purchase date (data starts at: Sep 2018)', 
                                        min_value = start_date,
                                        value = start_date,
                                        help="Begining of comparison period. Usually the purchase date of property.",
                                        key='DATE_SELECTED')
 
-DATE_SELECTED = DATE_SELECTED.replace(day=1)
+    DATE_SELECTED = DATE_SELECTED.replace(day=1)
 
 
-# end_date = dt.date(year=2022,month=7,day=1)
-END_DATE_SELECTED = st.sidebar.date_input('To estimate price change: Select end date (latest data: Oct 2022)', 
+    # end_date = dt.date(year=2022,month=7,day=1)
+    END_DATE_SELECTED = st.date_input('To estimate price change: Select end date (latest data: Oct 2022)', 
                                        value = end_date,
                                        help="End date of comparison period. Usually the latest month with available data.",
                                        key='END_DATE_SELECTED')
 
-END_DATE_SELECTED = END_DATE_SELECTED.replace(day=1)
-
-
+    END_DATE_SELECTED = END_DATE_SELECTED.replace(day=1)
 
 
 #%% User input results
@@ -292,7 +284,8 @@ current_price = df_chart1c.iloc[0]['median_listing_price']
 
 df_chart1 = df_chart1b.append(df_chart1c)
 df_chart1['date2']=df_chart1['date'].astype(str)
-# 
+
+
 #%% set up and link variables to user input elements    
 interest_rate = INTEREST / 12 / 100
 n_periods = np.arange(LOAN_LIFE * 12) + 1
@@ -436,10 +429,14 @@ with col1:
                 yanchor="bottom",
                 y=1.02,
                 xanchor="center",
-                x=0.5),
+                x=0.5)
                        
             )
         
+        #turn off zoom:
+        fig_3.layout.xaxis.fixedrange = True
+        fig_3.layout.yaxis.fixedrange = True
+       
         #plot sum of ownership costs as annotation text
         y_position = total_ownership_cost1*1.06
         fig_3.add_annotation(text=total_ownership_cost,
@@ -593,6 +590,9 @@ with col1:
                 x=0.5),
             )
         
+        #turn off zoom:
+        fig_3.layout.xaxis.fixedrange = True
+        fig_3.layout.yaxis.fixedrange = True
            
         #plot sum of ownership costs as annotation text
         y_position = total_ownership_cost1*1.06
@@ -643,6 +643,11 @@ with col1:
         bargap=0.2
         )
     
+    #turn off zoom:
+    fig.layout.xaxis.fixedrange = True
+    fig.layout.yaxis.fixedrange = True
+
+    
     #add that percentage price change label
     price_change = df_chart1.iloc[1]['median_listing_price']/df_chart1.iloc[0]['median_listing_price'] -1
     my_formatter = "{:+.0%}"
@@ -683,8 +688,6 @@ df_trend_chart = df_trend_chart[['date','median_listing_price', 'active_listing_
 #sort
 df_trend_chart = df_trend_chart.sort_values('date', ascending=True)
 
-#replace date column with hyphens
-
 #convert date to str
 df_trend_chart['date'] = df_trend_chart['date'].astype(str)
 
@@ -719,6 +722,10 @@ with col2:
     height=400, 
     bargap=0.2
     )
+    
+    #turn off zoom:
+    fig.layout.xaxis.fixedrange = True
+    fig.layout.yaxis.fixedrange = True
     
     fig_inventory.update_xaxes(type='category', linecolor='black')
     
@@ -766,6 +773,10 @@ with col2:
     height=400, 
     bargap=0.2
     )
+    
+    #turn off zoom:
+    fig_listings.layout.xaxis.fixedrange = True
+    fig_listings.layout.yaxis.fixedrange = True
     
     fig_listings.update_xaxes(type='category', linecolor='black')
     
@@ -828,6 +839,10 @@ with col2:
         bargap=0.175
         )
     
+    #turn off zoom:
+    fig_2.layout.xaxis.fixedrange = True
+    fig_2.layout.yaxis.fixedrange = True
+    
     #legend placement inside chart
     fig_2.update_layout(legend=dict(
         orientation="h",
@@ -876,9 +891,6 @@ US_pop['year'] = US_pop['DATE'].str[-4:]
 US_pop = df_USpop[['year', 'US']]
 US_pop = US_pop.loc[(US_pop['year'] == Year_1) | (US_pop['year'] == Year_5)]
     
-# US_pop.iloc[0] = pd.to_numeric(US_pop.iloc[0].str.replace(',', ''))
-# US_pop.iloc[1] = pd.to_numeric(US_pop.iloc[1].str.replace(',', ''))
-
 pop_rate_county = county_pop[Year_5].iloc[0] / county_pop[Year_1].iloc[0] - 1
 pop_rate_state = state_pop[Year_5].iloc[0] / state_pop[Year_1].iloc[0] - 1
 pop_rate_US = US_pop.iloc[1][1] / US_pop.iloc[0][1] - 1
@@ -937,6 +949,10 @@ with col3:
             height=400, 
             bargap=0.175
             )
+        
+        #turn off zoom:
+        fig_4.layout.xaxis.fixedrange = True
+        fig_4.layout.yaxis.fixedrange = True
         
         fig_4.layout.xaxis.tickformat = ',.0%'
         
@@ -1022,6 +1038,11 @@ with col3:
             bargap=0.175
             )
         
+        #turn off zoom:
+        fig_5.layout.xaxis.fixedrange = True
+        fig_5.layout.yaxis.fixedrange = True
+
+        
         #legend placement inside chart
         fig_5.update_layout(legend=dict(
             orientation="h",
@@ -1088,9 +1109,7 @@ with col3:
             legend_title_font_color="black",
             legend_title=None,
             yaxis_title=None,
-            xaxis_title=None,
-            # yaxis_range=[0, ],
-            # yaxis_ticksuffix = '%', 
+            xaxis_title=None, 
             showlegend=True,
             title_x=0.08,
             title_y=0.925,
@@ -1098,6 +1117,10 @@ with col3:
             height=400, 
             bargap=0.175
             )
+        
+        #turn off zoom:
+        fig_6.layout.xaxis.fixedrange = True
+        fig_6.layout.yaxis.fixedrange = True
         
         #legend placement inside chart
         fig_6.update_layout(legend=dict(
@@ -1113,7 +1136,7 @@ with col3:
         fig_6.update_traces(texttemplate='%{value:0,.1%}', textfont_size=12, 
                             textposition='inside')
         fig_6.update_xaxes(type='category', linecolor='black')
-        # fig_5.update_yaxes(dtick=500)
+        
         
         #turn off mode bar on top:
         config = {'displayModeBar': False}
@@ -1127,6 +1150,6 @@ with col3:
 
 
 #%% 
-#streamlit run C:\Tai\RE_project\Github\script_02\Github_dashboard_02.py
+#streamlit run C:\Tai\RE_project\Github\script\Github_dashboard.py
 
 
