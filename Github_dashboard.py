@@ -51,13 +51,20 @@ st.sidebar.title("Control Panel")
 col1,col2,col3 = st.columns([3,3,3])
 
 #%% import other csv files via GitHub cloud
+##CSV files
 # # url_realtor = 'https://raw.githubusercontent.com/liu3388/RE_input/main/realtor.csv'
 # # df_realtor = pd.read_csv(url_realtor)
-####################################################
 
-url_realtor = 'https://raw.githubusercontent.com/liu3388/RE_input/main/df.pkl'
+#####################################
+
+#pickle files
+url_realtor = 'https://raw.githubusercontent.com/liu3388/RE_input/main/realtor.pkl'
 df_realtor = pd.read_pickle(url_realtor)
 
+url_listings = 'https://raw.githubusercontent.com/liu3388/RE_input/main/listings_price.pkl'
+df_listings = pd.read_pickle(url_listings)
+
+#other csv files
 url_zipCodes = 'https://raw.githubusercontent.com/liu3388/RE_input/main/zip_codes.csv'
 df_zip = pd.read_csv(url_zipCodes)
 
@@ -78,9 +85,6 @@ df_USpop = pd.read_csv(url_USpop)
 
 url_income = 'https://raw.githubusercontent.com/liu3388/RE_input/main/med_household_income.csv'
 df_income = pd.read_csv(url_income)
-
-url_listings = 'https://raw.githubusercontent.com/liu3388/RE_input/main/listings_price.pkl'
-df_listings = pd.read_pickle(url_listings)
 
 #%% setup path to import csv files
 # os.chdir("C:\\Tai\\RE_project\\Github\\csv\\RE_input\\")
@@ -103,12 +107,12 @@ df_listings = pd.read_pickle(url_listings)
 # df_income = "med_household_income.csv"
 # df_income = pd.read_csv (path + "\\" + df_income, encoding='ISO-8859-1')
 
-# #import pickled files
-# df_realtor = pd.read_pickle('C:\Tai\RE_project\Github\csv\RE_input\df.pkl')
-# df_listings = pd.read_pickle('C:\Tai\RE_project\Github\csv\RE_input\listings_price.pkl')
+# # import pickled files
+# df_realtor = pd.read_pickle(path + "\\" + "realtor.pkl")
+# df_listings = pd.read_pickle(path + "\\" + "listings_price.pkl")
 
 # ###################################################
-# # #import in Realtor.com data csv file and merge with file with data for zip/city/county/state/sq feet data
+# # #import in Realtor.com data csv file
 # # df_realtor = "realtor.csv"
 # # df_realtor = pd.read_csv (path_csv + "\\" + df_realtor)
 
@@ -724,12 +728,12 @@ with col2:
     )
     
     #turn off zoom:
-    fig.layout.xaxis.fixedrange = True
-    fig.layout.yaxis.fixedrange = True
-    
+    fig_inventory.layout.xaxis.fixedrange = True
+    fig_inventory.layout.yaxis.fixedrange = True
+
     fig_inventory.update_xaxes(type='category', linecolor='black')
     
-    fig_inventory.update_traces(line_color='blue', line_width=4)
+    fig_inventory.update_traces(line_color='blue', line_width=4)     
     
     #turn off mode bar on top:
     config = {'displayModeBar': False}
@@ -1146,7 +1150,6 @@ with col3:
         
     #run function for chart_5            
     chart_income()
-
 
 
 #%% 
