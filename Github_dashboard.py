@@ -15,8 +15,8 @@ import numpy_financial as npf #DOWNLOAD: pip3 install numpy-financial
 import plotly.express as px
 
 #%% update dates
-start_date = dt.date(year=2018,month=9,day=1)
-end_date = dt.date(year=2022,month=10,day=1)
+start_date = dt.date(year=2018,month=10,day=1)
+end_date = dt.date(year=2022,month=11,day=1)
 
 #%% page setup
 st.set_page_config(layout="wide")  # this needs to be the first Streamlit command
@@ -270,7 +270,7 @@ with st.sidebar.form(key = 'RENT'):
 
 
     # end_date = dt.date(year=2022,month=7,day=1)
-    END_DATE_SELECTED = st.date_input('To estimate price change: Select end date (latest data: Oct 2022)', 
+    END_DATE_SELECTED = st.date_input('To estimate price change: Select end date (latest data: Nov 2022)', 
                                        value = end_date,
                                        help="End date of comparison period. Usually the latest month with available data.",
                                        key='END_DATE_SELECTED')
