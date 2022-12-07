@@ -57,7 +57,7 @@ col1,col2,col3 = st.columns([3,3,3])
 
 #####################################
 
-#pickle files
+# pickle files
 url_realtor = 'https://raw.githubusercontent.com/liu3388/RE_input/main/realtor.pkl'
 df_realtor = pd.read_pickle(url_realtor)
 
