@@ -247,13 +247,13 @@ with st.sidebar.form(key = 'RENT'):
     
     # user input side-bar for interest rates
     if "INT_RATE" not in st.session_state:
-        INT_RATE = 6.75
+        INT_RATE = 6.00
         # set the initial default value of the slider widget
-        # st.session_state.INT_RATE = 6.75
+        # st.session_state.INT_RATE = 6.00
     
     INTEREST = st.number_input(
         'Input mortgage interest rate, in %',
-        value=float(6.75),
+        value=float(6.00),
         step=.05,
         help="Rental cost for equivalent housing",
         key='INT_RATE', 
