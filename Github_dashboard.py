@@ -5,6 +5,11 @@ Created on Tue Dec 21 11:47:25 2021
 @author: tai
 """
 
+#instructions:
+#1) update dates on lines 21 and 22
+#2) update dates on lines 254 and 264 
+#3) test run on Anaconda Prompt: streamlit run C:\Tai\RE_project\Github\script\Github_dashboard.py
+
 import pandas as pd
 import os
 
@@ -15,8 +20,8 @@ import numpy_financial as npf #DOWNLOAD: pip3 install numpy-financial
 import plotly.express as px
 
 #%% update dates
-start_date = dt.date(year=2018,month=10,day=1)
-end_date = dt.date(year=2022,month=11,day=1)
+start_date = dt.date(year=2019,month=1,day=1)
+end_date = dt.date(year=2022,month=12,day=1)
 
 #%% page setup
 st.set_page_config(layout="wide")  # this needs to be the first Streamlit command
@@ -47,15 +52,9 @@ st.write('<style>div.block-container{padding-top:2rem;}</style>', unsafe_allow_h
 st.sidebar.title("Control Panel")
 # st.sidebar.subheader("User inputs on zip code, house price, rent, interest rates, etc.")
 
-#set up three-columns format
-col1,col2,col3 = st.columns([3,3,3])
+col1,col2,col3 = st.columns([3,3,3]) #set up three-columns format
 
-#%% import other csv files via GitHub cloud
-##CSV files
-# # url_realtor = 'https://raw.githubusercontent.com/liu3388/RE_input/main/realtor.csv'
-# # df_realtor = pd.read_csv(url_realtor)
-
-#####################################
+#%% import pickle and csv files via GitHub cloud
 
 # pickle files
 url_realtor = 'https://raw.githubusercontent.com/liu3388/RE_input/main/realtor.pkl'
@@ -86,10 +85,14 @@ df_USpop = pd.read_csv(url_USpop)
 url_income = 'https://raw.githubusercontent.com/liu3388/RE_input/main/med_household_income.csv'
 df_income = pd.read_csv(url_income)
 
-#%% setup path to import csv files
+#%% setup path to import csv and pickle files
 # os.chdir("C:\\Tai\\RE_project\\Github\\csv\\RE_input\\")
 # path = os.getcwd()
 # path_csv = path + "\\"
+
+# # import pickled files
+# df_realtor = pd.read_pickle(path + "\\" + "realtor.pkl")
+# df_listings = pd.read_pickle(path + "\\" + "listings_price.pkl")
 
 # # import csv files via local drive
 # df_zip = "zip_codes.csv"
@@ -107,16 +110,6 @@ df_income = pd.read_csv(url_income)
 # df_income = "med_household_income.csv"
 # df_income = pd.read_csv (path + "\\" + df_income, encoding='ISO-8859-1')
 
-# # import pickled files
-# df_realtor = pd.read_pickle(path + "\\" + "realtor.pkl")
-# df_listings = pd.read_pickle(path + "\\" + "listings_price.pkl")
-
-# ###################################################
-# # #import in Realtor.com data csv file
-# # df_realtor = "realtor.csv"
-# # df_realtor = pd.read_csv (path_csv + "\\" + df_realtor)
-
-
 #%% create zip code lists and create side bar filter
 #convert column 'postal_code' to str, add zeroes to zips
 df_realtor['postal_code'] = df_realtor['postal_code'].astype(str)
@@ -130,8 +123,7 @@ df_zip['zip'] = df_zip['zip'].str.pad(5, 'left', '0')
 df_realtor = df_realtor.merge(df_zip, how='left', left_on='postal_code', right_on='zip')
 df_realtor = df_realtor[:-1]
 
-#create df_chart1
-df_chart1 = df_realtor
+df_chart1 = df_realtor #create df_chart1
 
 #select columns for df_chart1
 df_chart1 = df_chart1[['month_date_yyyymm','postal_code', 
@@ -260,7 +252,7 @@ with st.sidebar.form(key = 'RENT'):
         )
     
     # create start date filter on side bar
-    DATE_SELECTED = st.date_input('To estimate price change: Select purchase date (data starts at: Sep 2018)', 
+    DATE_SELECTED = st.date_input('To estimate price change: Select purchase date (data starts at: Jan 2019)', 
                                        min_value = start_date,
                                        value = start_date,
                                        help="Begining of comparison period. Usually the purchase date of property.",
@@ -270,7 +262,7 @@ with st.sidebar.form(key = 'RENT'):
 
 
     # end_date = dt.date(year=2022,month=7,day=1)
-    END_DATE_SELECTED = st.date_input('To estimate price change: Select end date (latest data: Nov 2022)', 
+    END_DATE_SELECTED = st.date_input('To estimate price change: Select end date (latest data: Dec 2022)', 
                                        value = end_date,
                                        help="End date of comparison period. Usually the latest month with available data.",
                                        key='END_DATE_SELECTED')
@@ -609,11 +601,9 @@ with col1:
         fig_3.update_traces(texttemplate='%{value:$,.0f}', textfont_size=15, textposition='inside')
         fig_3.update_xaxes(type='category', linecolor='black', tickangle=0)
         
-        #turn off mode bar on top:
-        config = {'displayModeBar': False}
+        config = {'displayModeBar': False} #turn off mode bar on top:
         
-        #place the chart in streamlit column
-        st.plotly_chart(fig_3, config=config)
+        st.plotly_chart(fig_3, config=config) #place the chart in streamlit column
         
     Payments(interest_rate, n_periods, loan_term, mortgage_amount)
 
@@ -666,11 +656,9 @@ with col1:
                       marker_color='#0000FF')
     fig.update_xaxes(type='category', linecolor='black')
     
-    #turn off mode bar on top:
-    config = {'displayModeBar': False}
+    config = {'displayModeBar': False} #turn off mode bar on top:
     
-    #place the chart in streamlit column
-    st.plotly_chart(fig, config=config)
+    st.plotly_chart(fig, config=config) #place the chart in streamlit column
 
 #%% process df for column 2 – top and middle chart
 
@@ -679,21 +667,15 @@ with col1:
 df_listings['postal_code'] = df_listings['postal_code'].astype(str)
 df_listings['postal_code'] = df_listings['postal_code'].str.pad(5, 'left', '0')
 
-#drop columns, rename column
-df_listings = df_listings.drop('Unnamed: 0', axis=1)
-df_listings = df_listings.rename(columns={"postal_code": "zip_code", "month_date_yyyymm": "date"})
+df_listings = df_listings.rename(columns={"postal_code": "zip_code", "month_date_yyyymm": "date"}) #rename column
 
-#filter by zip code selected
-df_trend_chart = df_listings.loc[df_listings['zip_code'] == (ZIP_SELECTED)]
+df_trend_chart = df_listings.loc[df_listings['zip_code'] == (ZIP_SELECTED)] #filter by zip code selected
 
-#select columns for listing trend chart
-df_trend_chart = df_trend_chart[['date','median_listing_price', 'active_listing_count']]
+df_trend_chart = df_trend_chart[['date','median_listing_price', 'active_listing_count']] #select columns for listing trend chart
 
-#sort
-df_trend_chart = df_trend_chart.sort_values('date', ascending=True)
+df_trend_chart = df_trend_chart.sort_values('date', ascending=True) #sort df
 
-#convert date to str
-df_trend_chart['date'] = df_trend_chart['date'].astype(str)
+df_trend_chart['date'] = df_trend_chart['date'].astype(str) #convert date to str
 
 
 #%% column 2 top chart starts here
@@ -735,15 +717,12 @@ with col2:
     
     fig_inventory.update_traces(line_color='blue', line_width=4)     
     
-    #turn off mode bar on top:
-    config = {'displayModeBar': False}
+    config = {'displayModeBar': False} #turn off mode bar on top:
     
-    #place the chart in streamlit column
-    st.plotly_chart(fig_inventory, config = config)
+    st.plotly_chart(fig_inventory, config = config) #place the chart in streamlit column
     
     
 #%% column 2 middle chart starts here
-
 with col2:
     
     colors = {'active_listing_count':'blue',
@@ -786,11 +765,9 @@ with col2:
     
     fig_listings.update_traces(marker_color='#BF3EFF')
     
-    #turn off mode bar on top:
-    config = {'displayModeBar': False}
+    config = {'displayModeBar': False} #turn off mode bar on top:
     
-    #place the chart in streamlit column
-    st.plotly_chart(fig_listings, config = config)
+    st.plotly_chart(fig_listings, config = config) #place the chart in streamlit column
 
 
 #%% chart: rental costs trends
@@ -861,11 +838,9 @@ with col2:
     fig_2.update_xaxes(type='category', linecolor='black')
     fig_2.update_yaxes(dtick=500)
     
-    #turn off mode bar on top:
-    config = {'displayModeBar': False}
+    config = {'displayModeBar': False} #turn off mode bar on top:
     
-    #place the chart in streamlit column
-    st.plotly_chart(fig_2, config = config)
+    st.plotly_chart(fig_2, config = config) #place the chart in streamlit column
     
 
 #%% set up for population charts
@@ -964,11 +939,9 @@ with col3:
                             textposition='inside', marker_color='#9A32CD')
         fig_4.update_xaxes(linecolor='black')
         
-        #turn off mode bar on top:
-        config = {'displayModeBar': False}
+        config = {'displayModeBar': False} #turn off mode bar on top:
         
-        #place chart in proper column
-        st.plotly_chart(fig_4, config = config)
+        st.plotly_chart(fig_4, config = config) #place chart in proper column
         
     #run function for chart_5            
     chart_4()
@@ -986,7 +959,6 @@ income_county = df_income.loc[(df_income['State_Alpha'] == state1) &
 #delete all duplicate rows
 income_county = income_county.drop_duplicates()
 
-
 income_US = df_income.loc[(df_income['State_Alpha'] == 'US') & 
                               (df_income['County_Name']== 'United States')].T
 
@@ -1001,8 +973,8 @@ df_inc_chart[county1] = df_inc_chart[county1].astype(float)
 df_inc_chart['Year'] = df_inc_chart['Year'].astype(str)
 df_inc_chart['Year'].astype(int)
 df_inc_chart = df_inc_chart.sort_values(by='Year', ascending=True)
-#drop 2018 row
-df_inc_chart = df_inc_chart.iloc[1: , :]
+
+df_inc_chart = df_inc_chart.iloc[1: , :] #drop 2018 row
 
 #%% first income per capita chart (absolute $ amt)
 with col3:
@@ -1059,13 +1031,10 @@ with col3:
         fig_5.update_traces(texttemplate='%{value:$,.0f}', textfont_size=12, 
                             textposition='inside')
         fig_5.update_xaxes(type='category', linecolor='black')
-        # fig_5.update_yaxes(dtick=500)
         
-        #turn off mode bar on top:
-        config = {'displayModeBar': False}
+        config = {'displayModeBar': False} #turn off mode bar on top:
         
-        # #place the chart in streamlit column
-        st.plotly_chart(fig_5, config = config)
+        st.plotly_chart(fig_5, config = config) #place the chart in streamlit column
         
     #run function for chart_5            
     chart_income()
@@ -1140,13 +1109,10 @@ with col3:
         fig_6.update_traces(texttemplate='%{value:0,.1%}', textfont_size=12, 
                             textposition='inside')
         fig_6.update_xaxes(type='category', linecolor='black')
+                
+        config = {'displayModeBar': False} #turn off mode bar on top
         
-        
-        #turn off mode bar on top:
-        config = {'displayModeBar': False}
-        
-        #place the chart in streamlit column
-        st.plotly_chart(fig_6, config = config)
+        st.plotly_chart(fig_6, config = config) #place the chart in streamlit column
         
     #run function for chart_5            
     chart_income()
