@@ -8,7 +8,7 @@ Created on Tue Dec 21 11:47:25 2021
 #instructions:
 #1) update dates on lines 21 and 22
 #2) update dates on lines 254 and 264 
-#3) test run on Anaconda Prompt: streamlit run C:\Tai\RE_project\Github\script\Github_dashboard.py
+#3) test run on Anaconda Prompt: streamlit run C:\Tai\RE_project\Github\script\Github_dashboard.py 
 
 import pandas as pd
 import os
