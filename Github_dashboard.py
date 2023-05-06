@@ -6,8 +6,8 @@ Created on Tue Dec 21 11:47:25 2021
 """
 
 #instructions:
-#1) update dates on lines 21 and 22
-#2) update dates on lines 254 and 264 
+#1) update dates on lines 23 and 24
+#2) update dates on lines 253 and 263
 #3) test run on Anaconda Prompt: streamlit run C:\Tai\RE_project\Github\script\Github_dashboard.py 
 
 import pandas as pd
@@ -21,13 +21,12 @@ import plotly.express as px
 
 #%% update dates
 start_date = dt.date(year=2019,month=1,day=1)
-end_date = dt.date(year=2022,month=12,day=1)
+end_date = dt.date(year=2023,month=4,day=1)
 
 #%% page setup
 st.set_page_config(layout="wide")  # this needs to be the first Streamlit command
 
-#%%
-#remove more white space
+#%% remove more white space
 remove_padding_css = """
     .block-container {
     padding: 0 1rem;
@@ -38,8 +37,7 @@ st.markdown(
     + remove_padding_css
     + "</styles>",
     unsafe_allow_html=True,
-)
-
+    )
 
 #%%
 #add title
@@ -262,7 +260,7 @@ with st.sidebar.form(key = 'RENT'):
 
 
     # end_date = dt.date(year=2022,month=7,day=1)
-    END_DATE_SELECTED = st.date_input('To estimate price change: Select end date (latest data: Dec 2022)', 
+    END_DATE_SELECTED = st.date_input('To estimate price change: Select end date (latest data: Apr 2023)', 
                                        value = end_date,
                                        help="End date of comparison period. Usually the latest month with available data.",
                                        key='END_DATE_SELECTED')
