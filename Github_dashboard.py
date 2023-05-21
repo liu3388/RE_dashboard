@@ -156,9 +156,9 @@ df_rent_chart = df_rent_chart[['2 bedroom', '3 bedroom', '4 bedroom', 'year']]
 df_rent_chart = df_rent_chart[df_rent_chart['year'].isin(['2018', '2022'])]
 
 #add rent columns to df
-br2_rent = df_rent_chart['2 bedroom'].iloc[1]
-br3_rent = df_rent_chart['3 bedroom'].iloc[1]
-br4_rent = df_rent_chart['4 bedroom'].iloc[1]    
+br2_rent = df_rent_chart['2 bedroom'].iloc[-1]
+br3_rent = df_rent_chart['3 bedroom'].iloc[-1]
+br4_rent = df_rent_chart['4 bedroom'].iloc[-1]    
 
 
 #%% find current price of property
