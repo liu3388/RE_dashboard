@@ -351,7 +351,7 @@ with col1:
         #add rent columns to df
         br2_rent = df_rent_chart['2 bedroom'].iloc[1]
         br3_rent = df_rent_chart['3 bedroom'].iloc[1]
-        br4_rent = rent_amt    
+        # br4_rent = rent_amt    
         
         df['2 bedroom'] = br2_rent
         df['3 bedroom'] = br3_rent
