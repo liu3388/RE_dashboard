@@ -19,25 +19,26 @@ import numpy as np
 import numpy_financial as npf #DOWNLOAD: pip3 install numpy-financial
 import plotly.express as px
 
-#%% update dates
-start_date = dt.date(year=2019,month=1,day=1)
-end_date = dt.date(year=2023,month=4,day=1)
 
 #%% page setup
 st.set_page_config(layout="wide")  # this needs to be the first Streamlit command
 
+#%% update dates
+start_date = dt.date(year=2019,month=1,day=1)
+end_date = dt.date(year=2023,month=4,day=1)
+
 #%% remove more white space
-remove_padding_css = """
-    .block-container {
-    padding: 0 1rem;
-    }
-    """
-st.markdown(
-    "<style>"
-    + remove_padding_css
-    + "</styles>",
-    unsafe_allow_html=True,
-    )
+# remove_padding_css = """
+#     .block-container {
+#     padding: 0 1rem;
+#     }
+#     """
+# st.markdown(
+#     "<style>"
+#     + remove_padding_css
+#     + "</styles>",
+#     unsafe_allow_html=True,
+#     )
 
 #%%
 #add title
