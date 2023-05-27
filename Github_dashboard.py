@@ -257,25 +257,14 @@ with st.sidebar.form(key = 'RENT'):
 
 #%% User input results
 df_chart1a = (df_chart1.loc[df_chart1['postal_code'] == (ZIP_SELECTED)])
-st.write(df_chart1a)
-
-
 df_chart1b = (df_chart1a.loc[df_chart1a['date'] == (DATE_SELECTED)])
-st.write(df_chart1b)
-
 df_chart1c = (df_chart1a.loc[df_chart1a['date'] == (END_DATE_SELECTED)])
-st.write(df_chart1c)
 
 #set up variable for current house price
 current_price = df_chart1c.iloc[0]['median_listing_price']
-st.write(df_chart1c)
 
-
-# df_chart1 = df_chart1b.append(df_chart1c)
 frames = [df_chart1b, df_chart1c]
 df_chart1 = pd.concat(frames)
-
-st.write(df_chart1)
 
 df_chart1['date2']=df_chart1['date'].astype(str)
 
