@@ -27,19 +27,6 @@ st.set_page_config(layout="wide")  # this needs to be the first Streamlit comman
 start_date = dt.date(year=2019,month=1,day=1)
 end_date = dt.date(year=2023,month=4,day=1)
 
-#%% remove more white space
-# remove_padding_css = """
-#     .block-container {
-#     padding: 0 1rem;
-#     }
-#     """
-# st.markdown(
-#     "<style>"
-#     + remove_padding_css
-#     + "</styles>",
-#     unsafe_allow_html=True,
-#     )
-
 #%%
 #add title
 st.header("RENT or BUY?")
@@ -152,27 +139,8 @@ df_rent.rename(columns={'fmr_1br': '1 bedroom', 'fmr_2br': '2 bedroom',
                           'fmr_3br': '3 bedroom', 'fmr_3br': '3 bedroom',
                           'fmr_4br': '4 bedroom'}, inplace=True)
 df_rent_chart = df_rent.loc[df_rent['zip_code'] == zip_code_int]
-
-st.write(df_rent_chart)
-
-
 df_rent_chart = df_rent_chart[['2 bedroom', '3 bedroom', '4 bedroom', 'year']]
-
-st.write(df_rent_chart)
-
 df_rent_chart = df_rent_chart[df_rent_chart['year'].isin([2018, 2022])]
-
-
-st.write(df_rent_chart)
-
-
-st.write(zip_code_int)
-st.write(df_rent_chart['2 bedroom'])
-
-# st.write(df_rent.loc[df_rent['zip_code'] == zip_code_int])
-# st.write(df_rent.dtypes)
-
-
 
 #add rent columns to df
 br2_rent = df_rent_chart['2 bedroom'].iloc[-1]
@@ -289,13 +257,21 @@ with st.sidebar.form(key = 'RENT'):
 
 #%% User input results
 df_chart1a = (df_chart1.loc[df_chart1['postal_code'] == (ZIP_SELECTED)])
+st.write(df_chart1a)
+
+
 df_chart1b = (df_chart1a.loc[df_chart1a['date'] == (DATE_SELECTED)])
+st.write(df_chart1b)
+
 df_chart1c = (df_chart1a.loc[df_chart1a['date'] == (END_DATE_SELECTED)])
+st.write(df_chart1c)
 
 #set up variable for current house price
 current_price = df_chart1c.iloc[0]['median_listing_price']
 
 df_chart1 = df_chart1b.append(df_chart1c)
+st.write(df_chart1)
+
 df_chart1['date2']=df_chart1['date'].astype(str)
 
 
