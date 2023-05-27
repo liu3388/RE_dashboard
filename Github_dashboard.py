@@ -146,7 +146,7 @@ with st.sidebar.form(key = 'ZIP_SELECTED'):
 #%%
 #pull in chadrt for historical rental trends:
 #convert 'zip_code' from string to float
-zip_code_int = float(ZIP_SELECTED)
+zip_code_int = int(ZIP_SELECTED)
     
 df_rent.rename(columns={'fmr_1br': '1 bedroom', 'fmr_2br': '2 bedroom',
                           'fmr_3br': '3 bedroom', 'fmr_3br': '3 bedroom',
