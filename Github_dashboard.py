@@ -162,9 +162,12 @@ st.write(df_rent_chart)
 
 df_rent_chart = df_rent_chart[df_rent_chart['year'].isin(['2018', '2022'])]
 
+st.write(df_rent_chart)
+
+
 st.write(zip_code_int)
 st.write(df_rent_chart['2 bedroom'])
-st.write(df_rent_chart)
+
 # st.write(df_rent.loc[df_rent['zip_code'] == zip_code_int])
 # st.write(df_rent.dtypes)
 
