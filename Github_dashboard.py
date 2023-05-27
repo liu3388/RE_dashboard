@@ -272,7 +272,9 @@ st.write(df_chart1c)
 
 
 # df_chart1 = df_chart1b.append(df_chart1c)
-df_chart1 = df_chart1b.concat(df_chart1c)
+frames = [df_chart1b, df_chart1c]
+df_chart1 = pd.concat(frames)
+
 st.write(df_chart1)
 
 df_chart1['date2']=df_chart1['date'].astype(str)
