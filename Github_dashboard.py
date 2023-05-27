@@ -268,8 +268,11 @@ st.write(df_chart1c)
 
 #set up variable for current house price
 current_price = df_chart1c.iloc[0]['median_listing_price']
+st.write(df_chart1c)
 
-df_chart1 = df_chart1b.append(df_chart1c)
+
+# df_chart1 = df_chart1b.append(df_chart1c)
+df_chart1 = df_chart1b.concat(df_chart1c)
 st.write(df_chart1)
 
 df_chart1['date2']=df_chart1['date'].astype(str)
