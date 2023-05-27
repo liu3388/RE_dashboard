@@ -138,7 +138,7 @@ df_chart1['date'] = pd.to_datetime(df_chart1['date'], format="%Y%m",
 with st.sidebar.form(key = 'ZIP_SELECTED'):
     submit_button = st.form_submit_button(label='Submit zip code')
     ZIP_SELECTED = st.text_input('Type in zip code', 
-                                        value = str(11354),
+                                        value = str(30096),
                                         help="Zip code of property.",
                                         key='ZIP_SELECTED')
 
@@ -159,7 +159,7 @@ df_rent_chart = df_rent_chart[df_rent_chart['year'].isin(['2018', '2022'])]
 st.write(zip_code_int)
 st.write(df_rent_chart['2 bedroom'])
 st.write(df_rent_chart)
-st.write(df_rent.iloc[:4])
+st.write(df_rent.loc[df_rent['zip_code'] == zip_code_int])
 # st.write(df_rent.dtypes)
 
 
