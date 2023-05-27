@@ -335,17 +335,12 @@ with col1:
         df_rent_chart = df_rent.loc[df_rent['zip_code'] == zip_code_int]
         
         df_rent_chart = df_rent_chart[['2 bedroom', '3 bedroom', '4 bedroom', 'year']]
-        df_rent_chart = df_rent_chart[df_rent_chart['year'].isin(['2017', '2022'])]
+        df_rent_chart = df_rent_chart[df_rent_chart['year'].isin([2017, 2022])]
         
         #add rent columns to df
-        st.write(df_rent_chart)
-        
-        br2_rent = df_rent_chart['2 bedroom'].iloc[1]
-        st.write(br2_rent)
-        
+        br2_rent = df_rent_chart['2 bedroom'].iloc[1]                
         br3_rent = df_rent_chart['3 bedroom'].iloc[1]
-        st.write(br3_rent)
-        
+                
         # br4_rent = rent_amt    
         
         df['2 bedroom'] = br2_rent
