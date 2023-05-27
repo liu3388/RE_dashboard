@@ -138,7 +138,7 @@ df_chart1['date'] = pd.to_datetime(df_chart1['date'], format="%Y%m",
 with st.sidebar.form(key = 'ZIP_SELECTED'):
     submit_button = st.form_submit_button(label='Submit zip code')
     ZIP_SELECTED = st.text_input('Type in zip code', 
-                                        value = str(11354),
+                                        value = 11354,
                                         help="Zip code of property.",
                                         key='ZIP_SELECTED')
 
