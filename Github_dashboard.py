@@ -157,6 +157,7 @@ df_rent_chart = df_rent_chart[['2 bedroom', '3 bedroom', '4 bedroom', 'year']]
 df_rent_chart = df_rent_chart[df_rent_chart['year'].isin(['2018', '2022'])]
 
 st.write(df_rent_chart['2 bedroom'])
+st.write(df_rent_chart)
 st.write(df_rent['2 bedroom'].iloc[0])
 
 #add rent columns to df
