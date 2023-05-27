@@ -151,7 +151,7 @@ zip_code_int = int(ZIP_SELECTED)
 df_rent.rename(columns={'fmr_1br': '1 bedroom', 'fmr_2br': '2 bedroom',
                           'fmr_3br': '3 bedroom', 'fmr_3br': '3 bedroom',
                           'fmr_4br': '4 bedroom'}, inplace=True)
-df_rent_chart = df_rent.loc[df_rent['zip_code'] == zip_code_int]
+df_rent_chart = df_rent.loc[df_rent['zip_code'] == 11354]
 
 df_rent_chart = df_rent_chart[['2 bedroom', '3 bedroom', '4 bedroom', 'year']]
 df_rent_chart = df_rent_chart[df_rent_chart['year'].isin(['2018', '2022'])]
@@ -160,6 +160,9 @@ st.write(zip_code_int)
 st.write(df_rent_chart['2 bedroom'])
 st.write(df_rent_chart)
 st.write(df_rent['2 bedroom'].iloc[0])
+st.write(df_rent.dtypes)
+
+
 
 #add rent columns to df
 br2_rent = df_rent_chart['2 bedroom'].iloc[-1]
