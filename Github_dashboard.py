@@ -6,8 +6,8 @@ Created on Tue Dec 21 11:47:25 2021
 """
 
 #instructions:
-#1) update dates on lines 23 and 24
-#2) update dates on lines 253 and 263
+#1) update dates on lines 27 and 28
+#2) update dates on lines 240 and 250
 #3) test run on Anaconda Prompt: streamlit run C:\Tai\RE_project\Github\script\Github_dashboard.py 
 
 import pandas as pd
@@ -24,8 +24,8 @@ import plotly.express as px
 st.set_page_config(layout="wide")  # this needs to be the first Streamlit command
 
 #%% update dates
-start_date = dt.date(year=2019,month=1,day=1)
-end_date = dt.date(year=2023,month=4,day=1)
+start_date = dt.date(year=2020,month=7,day=1)
+end_date = dt.date(year=2023,month=5,day=1)
 
 #%%
 #add title
@@ -237,7 +237,7 @@ with st.sidebar.form(key = 'RENT'):
         )
     
     # create start date filter on side bar
-    DATE_SELECTED = st.date_input('To estimate price change: Select purchase date (data starts at: Jan 2019)', 
+    DATE_SELECTED = st.date_input('To estimate price change: Select purchase date (data starts at: Jul 2020)', 
                                        min_value = start_date,
                                        value = start_date,
                                        help="Begining of comparison period. Usually the purchase date of property.",
@@ -247,7 +247,7 @@ with st.sidebar.form(key = 'RENT'):
 
 
     # end_date = dt.date(year=2022,month=7,day=1)
-    END_DATE_SELECTED = st.date_input('To estimate price change: Select end date (latest data: Apr 2023)', 
+    END_DATE_SELECTED = st.date_input('To estimate price change: Select end date (latest data: May 2023)', 
                                        value = end_date,
                                        help="End date of comparison period. Usually the latest month with available data.",
                                        key='END_DATE_SELECTED')
@@ -285,6 +285,7 @@ with col1:
 
         #figure out monthly principal payment
         a = st.session_state.PrincipalPayments = npf.ppmt(rates, n_periods, periods, mortgage_amount)
+        print(rates)
         df1 = pd.DataFrame(a, columns = ['Monthly Principal'])
         
         #figure out monthly interests payment
