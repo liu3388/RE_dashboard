@@ -24,8 +24,8 @@ import plotly.express as px
 st.set_page_config(layout="wide")  # this needs to be the first Streamlit command
 
 #%% update dates
-start_date = dt.date(year=2020,month=7,day=1)
-end_date = dt.date(year=2023,month=5,day=1)
+start_date = dt.date(year=2020,month=11,day=1)
+end_date = dt.date(year=2023,month=9,day=1)
 
 #%%
 #add title
@@ -224,20 +224,20 @@ with st.sidebar.form(key = 'RENT'):
     
     # user input side-bar for interest rates
     if "INT_RATE" not in st.session_state:
-        INT_RATE = 6.00
+        INT_RATE = 8.00
         # set the initial default value of the slider widget
         # st.session_state.INT_RATE = 6.00
     
     INTEREST = st.number_input(
         'Input mortgage interest rate, in %',
-        value=float(6.00),
+        value=float(8.00),
         step=.05,
         help="Rental cost for equivalent housing",
         key='INT_RATE', 
         )
     
     # create start date filter on side bar
-    DATE_SELECTED = st.date_input('To estimate price change: Select purchase date (data starts at: Jul 2020)', 
+    DATE_SELECTED = st.date_input('To estimate price change: Select purchase date (data starts at: Nov 2020)', 
                                        min_value = start_date,
                                        value = start_date,
                                        help="Begining of comparison period. Usually the purchase date of property.",
@@ -247,7 +247,7 @@ with st.sidebar.form(key = 'RENT'):
 
 
     # end_date = dt.date(year=2022,month=7,day=1)
-    END_DATE_SELECTED = st.date_input('To estimate price change: Select end date (latest data: May 2023)', 
+    END_DATE_SELECTED = st.date_input('To estimate price change: Select end date (latest data: Sep 2023)', 
                                        value = end_date,
                                        help="End date of comparison period. Usually the latest month with available data.",
                                        key='END_DATE_SELECTED')
@@ -406,7 +406,7 @@ with col1:
             showlegend=True,
             title_x=0.08,
             title_y=0.93,
-            width=430,
+            width=410,
             height=400, 
             bargap=0.2,
             legend=dict(
@@ -564,7 +564,7 @@ with col1:
             showlegend=True,
             title_x=0.08,
             title_y=0.925,
-            width=430,
+            width=410,
             height=400, 
             bargap=0.2,
             legend=dict(
@@ -621,7 +621,7 @@ with col1:
         showlegend=False,
         title_x=0.08,
         title_y=0.925,
-        width=430,
+        width=410,
         height=400, 
         bargap=0.2
         )
@@ -693,7 +693,7 @@ with col2:
     showlegend=False,
     title_x=0.08,
     title_y=0.925,
-    width=430,
+    width=410,
     height=400, 
     bargap=0.2
     )
@@ -741,7 +741,7 @@ with col2:
     showlegend=False,
     title_x=0.08,
     title_y=0.925,
-    width=430,
+    width=410,
     height=400, 
     bargap=0.2
     )
@@ -804,7 +804,7 @@ with col2:
         showlegend=True,
         title_x=0.08,
         title_y=0.925,
-        width=430,
+        width=410,
         height=400, 
         bargap=0.175
         )
@@ -913,7 +913,7 @@ with col3:
             showlegend=False,
             title_x=0.03,
             title_y=0.925,
-            width=430,
+            width=410,
             height=400, 
             bargap=0.175
             )
@@ -998,7 +998,7 @@ with col3:
             showlegend=True,
             title_x=0.08,
             title_y=0.925,
-            width=430,
+            width=410,
             height=400, 
             bargap=0.175
             )
@@ -1075,7 +1075,7 @@ with col3:
             showlegend=True,
             title_x=0.08,
             title_y=0.925,
-            width=430,
+            width=410,
             height=400, 
             bargap=0.175
             )
