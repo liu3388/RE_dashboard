@@ -24,8 +24,8 @@ import plotly.express as px
 st.set_page_config(layout="wide")  # this needs to be the first Streamlit command
 
 #%% update dates
-start_date = dt.date(year=2021,month=2,day=1)
-end_date = dt.date(year=2023,month=11,day=1)
+start_date = dt.date(year=2021,month=5,day=1)
+end_date = dt.date(year=2024,month=3,day=1)
 
 #%%
 #add title
@@ -237,7 +237,7 @@ with st.sidebar.form(key = 'RENT'):
         )
     
     # create start date filter on side bar
-    DATE_SELECTED = st.date_input('To estimate price change: Select purchase date (data starts at: Feb 2021)', 
+    DATE_SELECTED = st.date_input('To estimate price change: Select purchase date (data starts at: May 2021)', 
                                        min_value = start_date,
                                        value = start_date,
                                        help="Begining of comparison period. Usually the purchase date of property.",
@@ -247,7 +247,7 @@ with st.sidebar.form(key = 'RENT'):
 
 
     # end_date = dt.date(year=2022,month=7,day=1)
-    END_DATE_SELECTED = st.date_input('To estimate price change: Select end date (latest data: Nov 2023)', 
+    END_DATE_SELECTED = st.date_input('To estimate price change: Select end date (latest data: Mar 2024)', 
                                        value = end_date,
                                        help="End date of comparison period. Usually the latest month with available data.",
                                        key='END_DATE_SELECTED')
