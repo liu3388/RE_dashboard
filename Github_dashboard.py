@@ -406,7 +406,7 @@ with col1:
             showlegend=True,
             title_x=0.08,
             title_y=0.93,
-            width=410,
+            width=350,
             height=400, 
             bargap=0.2,
             legend=dict(
@@ -564,7 +564,7 @@ with col1:
             showlegend=True,
             title_x=0.08,
             title_y=0.925,
-            width=410,
+            width=350,
             height=400, 
             bargap=0.2,
             legend=dict(
@@ -621,7 +621,7 @@ with col1:
         showlegend=False,
         title_x=0.08,
         title_y=0.925,
-        width=410,
+        width=350,
         height=400, 
         bargap=0.2
         )
@@ -693,7 +693,7 @@ with col2:
     showlegend=False,
     title_x=0.08,
     title_y=0.925,
-    width=410,
+    width=350,
     height=400, 
     bargap=0.2
     )
@@ -741,7 +741,7 @@ with col2:
     showlegend=False,
     title_x=0.08,
     title_y=0.925,
-    width=410,
+    width=350,
     height=400, 
     bargap=0.2
     )
@@ -804,7 +804,7 @@ with col2:
         showlegend=True,
         title_x=0.08,
         title_y=0.925,
-        width=410,
+        width=350,
         height=400, 
         bargap=0.175
         )
@@ -913,7 +913,7 @@ with col3:
             showlegend=False,
             title_x=0.03,
             title_y=0.925,
-            width=410,
+            width=350,
             height=400, 
             bargap=0.175
             )
@@ -998,7 +998,7 @@ with col3:
             showlegend=True,
             title_x=0.08,
             title_y=0.925,
-            width=410,
+            width=350,
             height=400, 
             bargap=0.175
             )
@@ -1075,7 +1075,7 @@ with col3:
             showlegend=True,
             title_x=0.08,
             title_y=0.925,
-            width=410,
+            width=350,
             height=400, 
             bargap=0.175
             )
