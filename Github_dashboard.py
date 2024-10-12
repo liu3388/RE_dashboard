@@ -24,8 +24,8 @@ import plotly.express as px
 st.set_page_config(layout="wide")  # this needs to be the first Streamlit command
 
 #%% update dates
-start_date = dt.date(year=2021,month=7,day=1)
-end_date = dt.date(year=2024,month=5,day=1)
+start_date = dt.date(year=2021,month=11,day=1)
+end_date = dt.date(year=2024,month=9,day=1)
 
 #%%
 #add title
@@ -43,58 +43,58 @@ col1,col2,col3 = st.columns([3,3,3]) #set up three-columns format
 #%% import pickle and csv files via GitHub cloud
 
 # pickle files
-url_realtor = 'https://raw.githubusercontent.com/liu3388/RE_input/main/realtor.pkl'
-df_realtor = pd.read_pickle(url_realtor)
+# url_realtor = 'https://raw.githubusercontent.com/liu3388/RE_input/main/realtor.pkl'
+# df_realtor = pd.read_pickle(url_realtor)
 
-url_listings = 'https://raw.githubusercontent.com/liu3388/RE_input/main/listings_price.pkl'
-df_listings = pd.read_pickle(url_listings)
+# url_listings = 'https://raw.githubusercontent.com/liu3388/RE_input/main/listings_price.pkl'
+# df_listings = pd.read_pickle(url_listings)
 
-#other csv files
-url_zipCodes = 'https://raw.githubusercontent.com/liu3388/RE_input/main/zip_codes.csv'
-df_zip = pd.read_csv(url_zipCodes)
+# #other csv files
+# url_zipCodes = 'https://raw.githubusercontent.com/liu3388/RE_input/main/zip_codes.csv'
+# df_zip = pd.read_csv(url_zipCodes)
 
-url_rent = 'https://raw.githubusercontent.com/liu3388/RE_input/main/rent.csv'
-df_rent = pd.read_csv(url_rent)
+# url_rent = 'https://raw.githubusercontent.com/liu3388/RE_input/main/rent.csv'
+# df_rent = pd.read_csv(url_rent)
 
-url_tax = 'https://raw.githubusercontent.com/liu3388/RE_input/main/tax.csv'
-df_tax = pd.read_csv(url_tax)
+# url_tax = 'https://raw.githubusercontent.com/liu3388/RE_input/main/tax.csv'
+# df_tax = pd.read_csv(url_tax)
 
-url_ins = 'https://raw.githubusercontent.com/liu3388/RE_input/main/insurance.csv'
-df_ins = pd.read_csv(url_ins)
+# url_ins = 'https://raw.githubusercontent.com/liu3388/RE_input/main/insurance.csv'
+# df_ins = pd.read_csv(url_ins)
 
-url_pop = 'https://raw.githubusercontent.com/liu3388/RE_input/main/population_state_county.csv'
-df_pop = pd.read_csv(url_pop)
+# url_pop = 'https://raw.githubusercontent.com/liu3388/RE_input/main/population_state_county.csv'
+# df_pop = pd.read_csv(url_pop)
 
-url_USpop = 'https://raw.githubusercontent.com/liu3388/RE_input/main/population_US.csv'
-df_USpop = pd.read_csv(url_USpop)
+# url_USpop = 'https://raw.githubusercontent.com/liu3388/RE_input/main/population_US.csv'
+# df_USpop = pd.read_csv(url_USpop)
 
-url_income = 'https://raw.githubusercontent.com/liu3388/RE_input/main/med_household_income.csv'
-df_income = pd.read_csv(url_income)
+# url_income = 'https://raw.githubusercontent.com/liu3388/RE_input/main/med_household_income.csv'
+# df_income = pd.read_csv(url_income)
 
 #%% setup path to import csv and pickle files
-# os.chdir("C:\\Tai\\RE_project\\Github\\csv\\RE_input\\")
-# path = os.getcwd()
-# path_csv = path + "\\"
+os.chdir("C:\\Tai\\RE_project\\Github\\csv\\RE_input\\")
+path = os.getcwd()
+path_csv = path + "\\"
 
-# # import pickled files
-# df_realtor = pd.read_pickle(path + "\\" + "realtor.pkl")
-# df_listings = pd.read_pickle(path + "\\" + "listings_price.pkl")
+# import pickled files
+df_realtor = pd.read_pickle(path + "\\" + "realtor.pkl")
+df_listings = pd.read_pickle(path + "\\" + "listings_price.pkl")
 
-# # import csv files via local drive
-# df_zip = "zip_codes.csv"
-# df_zip = pd.read_csv (path + "\\" + df_zip)
-# df_rent = "rent.csv"
-# df_rent = pd.read_csv (path + "\\" + df_rent)
-# df_tax = "tax.csv"
-# df_tax = pd.read_csv (path + "\\" + df_tax)
-# df_ins = "insurance.csv"
-# df_ins = pd.read_csv (path + "\\" + df_ins)
-# df_pop = "population_state_county.csv"
-# df_pop = pd.read_csv (path + "\\" + df_pop, encoding = "ISO-8859-1")
-# df_USpop = "population_US.csv"
-# df_USpop = pd.read_csv (path + "\\" + df_USpop)
-# df_income = "med_household_income.csv"
-# df_income = pd.read_csv (path + "\\" + df_income, encoding='ISO-8859-1')
+# import csv files via local drive
+df_zip = "zip_codes.csv"
+df_zip = pd.read_csv (path + "\\" + df_zip)
+df_rent = "rent.csv"
+df_rent = pd.read_csv (path + "\\" + df_rent)
+df_tax = "tax.csv"
+df_tax = pd.read_csv (path + "\\" + df_tax)
+df_ins = "insurance.csv"
+df_ins = pd.read_csv (path + "\\" + df_ins)
+df_pop = "population_state_county.csv"
+df_pop = pd.read_csv (path + "\\" + df_pop, encoding = "ISO-8859-1")
+df_USpop = "population_US.csv"
+df_USpop = pd.read_csv (path + "\\" + df_USpop)
+df_income = "med_household_income.csv"
+df_income = pd.read_csv (path + "\\" + df_income, encoding='ISO-8859-1')
 
 #%% create zip code lists and create side bar filter
 #convert column 'postal_code' to str, add zeroes to zips
@@ -237,7 +237,7 @@ with st.sidebar.form(key = 'RENT'):
         )
     
     # create start date filter on side bar
-    DATE_SELECTED = st.date_input('To estimate price change: Select purchase date (data starts at: Jul 2021)', 
+    DATE_SELECTED = st.date_input('To estimate price change: Select purchase date (data starts at: Nov 2021)', 
                                        min_value = start_date,
                                        value = start_date,
                                        help="Begining of comparison period. Usually the purchase date of property.",
@@ -247,7 +247,7 @@ with st.sidebar.form(key = 'RENT'):
 
 
     # end_date = dt.date(year=2022,month=7,day=1)
-    END_DATE_SELECTED = st.date_input('To estimate price change: Select end date (latest data: May 2024)', 
+    END_DATE_SELECTED = st.date_input('To estimate price change: Select end date (latest data: Sep 2024)', 
                                        value = end_date,
                                        help="End date of comparison period. Usually the latest month with available data.",
                                        key='END_DATE_SELECTED')
